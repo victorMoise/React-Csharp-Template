@@ -7,17 +7,14 @@ import common_en from "./translations/en/common.json";
 import common_ro from "./translations/ro/common.json";
 import { BrowserRouter as Router } from "react-router-dom";
 import AppRoutes from "./routing/AppRoutes";
+import { CssBaseline } from "@mui/material";
 
 i18next.init({
-  interpolation: { escapeValue: false }, 
-});
-
-i18next.init({
-  interpolation: { escapeValue: false }, 
-  lng: "en", 
+  interpolation: { escapeValue: false },
+  lng: "en",
   resources: {
     en: {
-      common: common_en, 
+      common: common_en,
     },
     ro: {
       common: common_ro,
@@ -25,13 +22,17 @@ i18next.init({
   },
 });
 
-ReactDOM.render(
-  <I18nextProvider i18n={i18next}>
-    <AuthProvider>
-      <Router>
-        <AppRoutes />
-      </Router>
-    </AuthProvider>
-  </I18nextProvider>,
-  document.getElementById("root")
-);
+const App = () => {
+  return (
+    <I18nextProvider i18n={i18next}>
+      <AuthProvider>
+          <CssBaseline /> 
+          <Router>
+            <AppRoutes />
+          </Router>
+      </AuthProvider>
+    </I18nextProvider>
+  );
+};
+
+ReactDOM.render(<App />, document.getElementById("root"));

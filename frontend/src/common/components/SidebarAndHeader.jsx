@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useCallback, useState } from "react";
 import {
   Drawer,
   List,
@@ -25,19 +25,28 @@ import { useAuth } from "../../contexts/AuthContext";
 import { useTranslation } from "react-i18next";
 import { useNavigate } from "react-router-dom";
 import LanguageSelector from "./LanguageSelector";
+import {
+  buttonBackground,
+  headerBackground,
+  headerColor,
+  sidebarBackground,
+  sidebarColor,
+  textColor,
+} from "../../constants/colors";
+import { DarkModeSwitch } from "react-toggle-dark-mode";
 
 const SidebarAndHeader = (props) => {
   const { t } = useTranslation("common");
-  const { pageTitle } = props;
+  const { pageTitle, onSetIsDarkMode, isDarkMode } = props;
   const { logout } = useAuth();
   const [isOpen, setIsOpen] = useState(false);
   const theme = useTheme();
   const isMobile = useMediaQuery(theme.breakpoints.down("sm"));
   const navigate = useNavigate();
 
-  const toggleSidebar = () => {
+  const toggleSidebar = useCallback(() => {
     setIsOpen((prev) => !prev);
-  };
+  }, []);
 
   const menuItems = [
     {
@@ -69,13 +78,13 @@ const SidebarAndHeader = (props) => {
       <AppBar
         position="fixed"
         sx={{
-          backgroundColor: "#4a90e2",
-          color: "#ffffff",
+          backgroundColor: headerBackground,
+          color: headerColor,
           zIndex: (theme) => theme.zIndex.drawer + 1,
           width: isMobile ? "100%" : `calc(100% - ${isOpen ? 240 : 60}px)`,
           transition: "width 0.3s ease",
           boxShadow: "none",
-          borderBottom: "1px solid #e0e0e0",
+          borderBottom: `1px solid ${theme.palette.divider}`,
         }}
       >
         <Toolbar>
@@ -93,7 +102,23 @@ const SidebarAndHeader = (props) => {
           <Typography variant="h6" noWrap component="div">
             {pageTitle}
           </Typography>
-          <LanguageSelector />
+          <Box
+            sx={{
+              position: "fixed",
+              top: 0,
+              right: 0,
+              display: "flex",
+              alignItems: "center",
+              padding: 1,
+            }}
+          >
+            <DarkModeSwitch
+              checked={isDarkMode}
+              onChange={onSetIsDarkMode}
+              size={30}
+            />
+            <LanguageSelector textColor={textColor} />
+          </Box>
         </Toolbar>
       </AppBar>
 
@@ -111,7 +136,8 @@ const SidebarAndHeader = (props) => {
           "& .MuiDrawer-paper": {
             width: isOpen ? (isMobile ? "240px" : 240) : 60,
             boxSizing: "border-box",
-            backgroundColor: "#f0f0f0",
+            backgroundColor: sidebarBackground,
+            color: sidebarColor,
             boxShadow: "2px 0 5px rgba(0, 0, 0, 0.1)",
             transition: "width 0.3s ease",
             display: "flex",
@@ -131,17 +157,18 @@ const SidebarAndHeader = (props) => {
                   onClick={item.onClick}
                   sx={{
                     justifyContent: isOpen ? "flex-start" : "center",
+                    color: textColor,
                     "&:hover": {
-                      backgroundColor: "#e0e0e0",
+                      backgroundColor: theme.palette.action.hover,
                     },
                     cursor: "pointer",
                   }}
                 >
                   <ListItemIcon
                     sx={{
-                      color: "#1976d2",
                       minWidth: isOpen ? "40px" : "0",
                       justifyContent: isOpen ? "flex-start" : "center",
+                      color: textColor,
                     }}
                   >
                     {item.icon}
@@ -166,13 +193,17 @@ const SidebarAndHeader = (props) => {
             <IconButton
               onClick={toggleSidebar}
               sx={{
-                backgroundColor: "#ffffff",
+                backgroundColor: buttonBackground,
                 borderRadius: "50%",
                 boxShadow: "0 2px 5px rgba(0, 0, 0, 0.2)",
                 margin: isOpen ? "0 auto" : "0",
               }}
             >
-              {isOpen ? <ArrowBackIcon /> : <ArrowForwardIcon />}
+              {isOpen ? (
+                <ArrowBackIcon color={textColor} />
+              ) : (
+                <ArrowForwardIcon color={textColor} />
+              )}
             </IconButton>
           )}
         </Box>
