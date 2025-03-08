@@ -1,6 +1,5 @@
 ﻿using backend.Entities;
 using Microsoft.EntityFrameworkCore;
-using System.Globalization;
 using System.Reflection;
 
 public class AppDbContext : DbContext
@@ -8,26 +7,24 @@ public class AppDbContext : DbContext
     public AppDbContext(DbContextOptions<AppDbContext> options) : base(options) { }
 
     public DbSet<User> Users { get; set; }
+    public DbSet<Role> Roles { get; set; }
     public DbSet<Country> Countries { get; set; }
+    public DbSet<City> Cities { get; set; }
+    public DbSet<Address> Addresses { get; set; }
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
-        // Apply all configurations from the current assembly
         modelBuilder.ApplyConfigurationsFromAssembly(Assembly.GetExecutingAssembly());
-
-        // Apply snake_case naming convention to all entities
         foreach (var entity in modelBuilder.Model.GetEntityTypes())
         {
             foreach (var property in entity.GetProperties())
             {
-                // Convert the property name to snake_case
                 property.SetColumnName(ToSnakeCase(property.Name));
             }
         }
     }
 
-    // Helper method to convert camelCase or PascalCase to snake_case
-    private string ToSnakeCase(string str)
+    private static string ToSnakeCase(string str)
     {
         var startUnderscore = false;
         var snakeCase = new System.Text.StringBuilder();
