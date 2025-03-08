@@ -74,7 +74,6 @@ const Sidebar = (props) => {
           justifyContent: "center",
         }}
       >
-        {/* Sidebar Toggle Button for Desktop */}
         {!isMobile && (
           <IconButton
             onClick={toggleSidebar}

@@ -30,7 +30,6 @@ const Header = (props) => {
       }}
     >
       <Toolbar>
-        {/* Sidebar Toggle Button for Mobile */}
         {isMobile && (
           <IconButton
             color="inherit"

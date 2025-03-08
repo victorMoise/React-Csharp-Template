@@ -86,8 +86,6 @@ function LoginForm() {
               item
               container
               xs={6}
-              md={6}
-              sm={6}
               justifyContent="flex-end"
               alignItems="center"
             >
