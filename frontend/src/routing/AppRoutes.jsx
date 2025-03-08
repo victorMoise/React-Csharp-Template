@@ -7,7 +7,7 @@ import HomeContainer from "../features/home/components/HomeContainer";
 import RegisterForm from "../features/register/components/RegisterContainer";
 import ProfileContainer from "../features/profile/components/ProfileContainer";
 
-const AppRoutes = () => {
+const AppRoutes = (props) => {
   const location = useLocation();
   const navigate = useNavigate();
   const { isAuthenticated } = useAuth();
