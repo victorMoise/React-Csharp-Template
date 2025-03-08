@@ -1,0 +1,54 @@
+{
+  "Login": {
+    "Error": {
+      "UsernameAndPasswordRequired": "Please enter a username and password",
+      "UsernameRequired": "Please enter a username",
+      "PasswordRequired": "Please enter a password",
+      "InvalidCredentials": "Username or password are invalid"
+    },
+    "NoAccount": "Don't have an account?",
+    "CreateAccount": "Create account",
+    "LoginButton": "Login",
+    "Login": "Login"
+  },
+  "InputFields": {
+    "Username": "Username",
+    "Password": "Password",
+    "Email": "Email",
+    "ConfirmPassword": "Confirm password",
+    "TogglePasswordVisibility": "toggle password visibility"
+  },
+  "Signup": {
+    "Error": {
+      "AllFieldsRequired": "Please fill in all fields",
+      "UsernameRequired": "Please enter a username",
+      "PasswordRequired": "Please enter a password",
+      "EmailRequired": "Please enter an email",
+      "ConfirmPasswordRequired": "Please confirm your password",
+      "PasswordsDoNotMatch": "Passwords do not match"
+    },
+    "Signup": "Signup",
+    "SignupButton": "Sign up",
+    "AlreadyHaveAnAccount": "Already have an account?",
+    "Login": "Login"
+  },
+  "Sidebar": {
+    "Home": "Home",
+    "Profile": "Profile"
+  },
+  "Profile": {
+    "ProfileDetails": "Profile details",
+    "SaveChanges": "Save changes",
+    "ProfileUpdated": "Profile updated successfully",
+    "ErrorFetchingData": "Error fetching data"
+  },
+  "Home": {
+    "Welcome": "Welcome"
+  },
+  "Common": {
+    "Cancel": "Cancel",
+    "Save": "Save",
+    "Actions": "Actions",
+    "Close": "Close"
+  }
+}

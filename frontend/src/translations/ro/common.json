@@ -1,0 +1,54 @@
+{
+  "Login": {
+    "Error": {
+      "UsernameAndPasswordRequired": "Introduceti un nume de utilizator si o parola",
+      "UsernameRequired": "Introduceti un nume de utilizator",
+      "PasswordRequired": "Introduceti o parola",
+      "InvalidCredentials": "Numele de utilizator sau parola sunt invalide"
+    },
+    "NoAccount": "Nu aveti un cont?",
+    "CreateAccount": "Creeaza cont",
+    "LoginButton": "Login",
+    "Login": "Login"
+  },
+  "InputFields": {
+    "Username": "Nume de utilizator",
+    "Password": "Parola",
+    "Email": "Email",
+    "ConfirmPassword": "Confirma parola",
+    "TogglePasswordVisibility": "comuta vizibilitatea parolei"
+  },
+  "Signup": {
+    "Error": {
+      "AllFieldsRequired": "Va rugam sa completati toate campurile",
+      "UsernameRequired": "Va rugam sa introduceti un nume de utilizator",
+      "PasswordRequired": "Va rugam sa introduceti o parola",
+      "EmailRequired": "Va rugam sa introduceti un email",
+      "ConfirmPasswordRequired": "Va rugam sa confirmati parola",
+      "PasswordsDoNotMatch": "Parolele nu se potrivesc"
+    },
+    "Signup": "Inregistrare",
+    "SignupButton": "Creeaza cont",
+    "AlreadyHaveAnAccount": "Aveti deja un cont?",
+    "Login": "Login"
+  },
+  "Sidebar": {
+    "Home": "Acasa",
+    "Profile": "Profil"
+  },
+  "Profile": {
+    "ProfileDetails": "Detalii profil",
+    "SaveChanges": "Salveaza modificarile",
+    "ProfileUpdated": "Profil actualizat cu succes",
+    "ErrorFetchingData": "Eroare la preluarea datelor"
+  },
+  "Home": {
+    "Welcome": "Bine ati venit"
+  },
+  "Common": {
+    "Cancel": "Anuleaza",
+    "Save": "Salveaza",
+    "Actions": "Actiuni",
+    "Close": "Inchide"
+  }
+}
