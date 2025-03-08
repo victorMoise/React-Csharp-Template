@@ -1,14 +1,14 @@
 ﻿using backend.Entities;
-using Microsoft.EntityFrameworkCore.Metadata.Builders;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
 namespace backend.Configuration
 {
-    public class CityConfiguration : IEntityTypeConfiguration<City>
+    public class RoleConfiguration : IEntityTypeConfiguration<Role>
     {
-        public void Configure(EntityTypeBuilder<City> builder)
+        public void Configure(EntityTypeBuilder<Role> builder)
         {
-            builder.ToTable("cities").HasKey(x => x.Id);
+            builder.ToTable("roles").HasKey(x => x.Id);
             builder.Property(x => x.Code).IsRequired().HasMaxLength(10);
             builder.Property(x => x.Name).IsRequired().HasMaxLength(50);
         }

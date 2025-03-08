@@ -4,18 +4,16 @@ namespace backend.Utils
 {
     public class EmailValidator
     {
-        // Regular expression for validating an email address
-        private const string EmailPattern = @"^[^@\s]+@[^@\s]+\.[^@\s]+$";
+        private static readonly string EmailPattern = @"^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$";
 
-        public bool IsValidEmail(string email)
+        public static bool IsValidEmail(string email)
         {
-            if (string.IsNullOrWhiteSpace(email))
+            if (string.IsNullOrEmpty(email))
             {
                 return false;
             }
 
-            // Use Regex to match the email pattern
-            return Regex.IsMatch(email, EmailPattern, RegexOptions.IgnoreCase);
+            return Regex.IsMatch(email, EmailPattern);
         }
     }
 }

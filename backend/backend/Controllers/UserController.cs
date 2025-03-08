@@ -1,5 +1,4 @@
-﻿using backend.Requests;
-using Microsoft.AspNetCore.Authorization;
+﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.IdentityModel.Tokens;
 using System.IdentityModel.Tokens.Jwt;
@@ -8,11 +7,11 @@ using System.Text;
 
 [ApiController]
 [Route("api/[controller]")]
-public class UsersController : ControllerBase
+public class UserController : ControllerBase
 {
     private readonly AppDbContext _context;
 
-    public UsersController(AppDbContext context)
+    public UserController(AppDbContext context)
     {
         _context = context;
     }
@@ -32,28 +31,15 @@ public class UsersController : ControllerBase
     //}
 
     [HttpPost("register")]
-    public async Task<IActionResult> Register(UserRegisterRequest userRegisterRequest)
+    public async Task<IActionResult> Register()
     {
-        return null;
+        throw new NotImplementedException();
     }
 
 
     [HttpPost("login")]
-    public async Task<IActionResult> Login(UserLoginRequest userLoginrRequest)
+    public async Task<IActionResult> Login()
     {
-        return null;
-    }
-
-    [HttpGet("userRole")]
-    public async Task<IActionResult> userRole([FromQuery] string username)
-    {
-        return null;
-    }
-
-    [HttpGet("userInfo")]
-    [Authorize]
-    public async Task<IActionResult> userInfo([FromQuery] string username)
-    {
-        return null;
+        throw new NotImplementedException();
     }
 }

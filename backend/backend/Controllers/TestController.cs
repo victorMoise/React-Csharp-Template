@@ -1,29 +1,25 @@
-﻿using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
+﻿using backend.Queries.Test;
+using MediatR;
+using Microsoft.AspNetCore.Mvc;
 
-[ApiController]
-[Route("api/[controller]")]
-public class TestController : ControllerBase
+namespace backend.Controllers
 {
-    private readonly AppDbContext _context;
-
-    public TestController(AppDbContext context)
+    [ApiController]
+    [Route("api/[controller]")]
+    public class TestController : ControllerBase
     {
-        _context = context;
-    }
+        private readonly IMediator _mediator;
 
-    [HttpGet("connection")]
-    public async Task<IActionResult> TestConnection()
-    {
-        try
+        public TestController(IMediator mediator)
         {
-            // Simple query to test connection
-            var result = await _context.Countries.ToListAsync();
-            return Ok(result);
+            _mediator = mediator;
         }
-        catch (Exception ex)
+
+        [HttpGet("connection")]
+        public async Task<IActionResult> TestConnection()
         {
-            return StatusCode(500, $"Error connecting to database: {ex.Message}");
+            var result = await _mediator.Send(new GetConnection.Query());
+            return Ok(result);
         }
     }
 }
