@@ -34,7 +34,8 @@
   },
   "Sidebar": {
     "Home": "Acasa",
-    "Profile": "Profil"
+    "Profile": "Profil",
+    "Logout": "Deconectare"
   },
   "Profile": {
     "ProfileDetails": "Detalii profil",

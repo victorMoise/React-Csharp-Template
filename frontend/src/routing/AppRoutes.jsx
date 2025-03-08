@@ -37,7 +37,7 @@ const AppRoutes = () => {
       />
       <Route
         path="/profile"
-        element={<RegisterForm />}
+        element={<ProfileContainer />}
         //element={<ProtectedRoute element={<ProfileContainer />} />}
       />
     </Routes>
