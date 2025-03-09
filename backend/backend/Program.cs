@@ -1,7 +1,3 @@
-using backend.Repository.Test;
-using backend.Repository.User;
-using backend.Service.Encryption;
-using backend.Service.Token;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
@@ -15,16 +11,17 @@ builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
-// Repostitories
-builder.Services.AddScoped<ITestRepository, TestRepository>();
-builder.Services.AddScoped<IUserRepository, UserRepository>();
-
-// Services
-builder.Services.AddScoped<ITokenService, TokenService>();
-builder.Services.AddScoped<IEncryptionService, EncryptionService>();
+builder.Services.Scan(scan => scan
+    .FromAssemblyOf<Program>()
+    .AddClasses(classes => classes.Where(type =>
+        type.Namespace != null &&
+        (type.Namespace.StartsWith("backend.Repository") || type.Namespace.StartsWith("backend.Service"))
+    ))
+    .AsImplementedInterfaces()
+    .WithScopedLifetime()
+);
 
 builder.Services.AddMediatR(cfg => cfg.RegisterServicesFromAssemblies(Assembly.GetExecutingAssembly()));
-
 
 builder.Services.AddDbContext<AppDbContext>(options =>
     options.UseNpgsql(builder.Configuration.GetConnectionString("DefaultConnection")));
@@ -64,10 +61,9 @@ if (app.Environment.IsDevelopment())
 
 app.UseHttpsRedirection();
 
-// **Order matters here:**
-app.UseRouting();  // Enable routing middleware
+app.UseRouting();  
 
-app.UseCors("AllowReactApp");  // CORS must be applied **after** UseRouting but **before** UseEndpoints
+app.UseCors("AllowReactApp"); 
 
 app.UseAuthentication();
 app.UseAuthorization();
