@@ -19,5 +19,15 @@ namespace backend.Repository.User
             return user;
         }
 
+        public async Task<E.User> SaveUser(E.User user)
+        {
+            if (user.Id == default)
+                _dbContext.Users.Add(user);
+            else
+                _dbContext.Users.Update(user);
+
+            await _dbContext.SaveChangesAsync();
+            return user;
+        }
     }
 }

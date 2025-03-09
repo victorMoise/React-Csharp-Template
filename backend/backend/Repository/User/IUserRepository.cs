@@ -4,6 +4,7 @@ namespace backend.Repository.User
 {
     public interface IUserRepository
     {
-        public Task<E.User> GetUser(string username);
+        Task<E.User> GetUser(string username);
+        Task<E.User> SaveUser(E.User user);
     }
 }
