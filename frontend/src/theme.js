@@ -5,14 +5,14 @@ export const lightTheme = createTheme({
     mode: "light",
     primary: {
       main: "#4caf50",
-      light: "#81c784",
+      light: "#a5d6a7",
     },
     secondary: {
-      main: "#a5d6a7",
+      main: "#81c784",
     },
     background: {
       default: "#dcefe0",
-      paper: "#ffffff",
+      paper: "#c5dfcb",
     },
     text: {
       primary: "#0d3a10",
@@ -25,19 +25,20 @@ export const darkTheme = createTheme({
   palette: {
     mode: "dark",
     primary: {
-      main: "#1b854f",
-      light: "#48a478",
+      main: "#3a3a3a",
+      light: "#505050",
     },
     secondary: {
-      main: "#4f8664",
+      main: "#5a5a5a",
     },
     background: {
-      default: "#5a5a5a", 
-      paper: "#8a8a8a", 
+      default: "#2e2e2e",
+      paper: "#626262",
     },
     text: {
-      primary: "#f0f0f0",
-      secondary: "#c0c0c0",
+      primary: "#dcefe0",
+      secondary: "#a8a8a8",
     },
   },
 });
+
