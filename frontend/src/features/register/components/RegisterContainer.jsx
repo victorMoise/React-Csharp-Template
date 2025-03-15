@@ -4,21 +4,19 @@ import { useTranslation } from "react-i18next";
 import useToast from "../../../hooks/useToast";
 import Toast from "../../../common/components/Toast";
 import { useNavigate } from "react-router-dom";
-import { registerUser } from "../../../api/userApi";
 import Header from "./RegisterHeader";
 import InputFields from "./RegisterInputFields";
 import SubmitButton from "./RegisterSubmitButton";
-
-const errorEmptyUsername = "BackendErrors.EmptyUsername";
-const errorEmptyEmail = "BackendErrors.EmptyEmail";
-const errorEmptyPassword = "BackendErrors.EmptyPassword";
-const errorEmptyConfirmPassword = "BackendErrors.EmptyConfirmPassword";
-const errorWeakPassword = "BackendErrors.WeakPassword";
+import { useRequest } from "../../../hooks/useRequest";
+import { endpoints } from "../../../utils/endpoints";
 
 const RegisterForm = () => {
   const { t } = useTranslation("common");
   const { toast, showToast, handleClose } = useToast();
   const navigate = useNavigate();
+  const { sendRequest } = useRequest(endpoints.auth.register, {
+    method: "POST",
+  });
 
   const [form, setForm] = useState({
     username: "",
@@ -80,7 +78,12 @@ const RegisterForm = () => {
       }
 
       try {
-        await registerUser(username, email, password);
+        await sendRequest({
+          Username: username,
+          Email: email,
+          Password: password,
+        });
+
         showToast(
           "Account created successfully. Redirecting to login...",
           "success"
@@ -94,20 +97,27 @@ const RegisterForm = () => {
           t(error.response?.data?.message) ||
           t(error?.message) ||
           "An error occurred";
+
         showToast(errorMessage, "error");
-        errorMessage === t(errorEmptyUsername) &&
+
+        if (errorMessage === t("errorEmptyUsername")) {
           setErrors({ ...errors, username: true });
-        errorMessage === t(errorEmptyEmail) &&
+        }
+        if (errorMessage === t("errorEmptyEmail")) {
           setErrors({ ...errors, email: true });
-        errorMessage === t(errorEmptyPassword) &&
+        }
+        if (errorMessage === t("errorEmptyPassword")) {
           setErrors({ ...errors, password: true });
-        errorMessage === t(errorEmptyConfirmPassword) &&
+        }
+        if (errorMessage === t("errorEmptyConfirmPassword")) {
           setErrors({ ...errors, confirmPassword: true });
-        errorMessage === t(errorWeakPassword) &&
+        }
+        if (errorMessage === t("errorWeakPassword")) {
           setErrors({ ...errors, password: true });
+        }
       }
     },
-    [errors, form, navigate, showToast, t]
+    [form, errors, navigate, showToast, t, sendRequest]
   );
 
   return (

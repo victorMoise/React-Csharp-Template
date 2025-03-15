@@ -1,5 +1,5 @@
 ﻿using AutoMapper;
-using backend.Queries.User;
+using backend.Queries.Auth;
 using E = backend.Entities;
 
 namespace backend.Mapper.User
@@ -10,6 +10,9 @@ namespace backend.Mapper.User
         {
             CreateMap<E.User, GetUserLogin.Model>()
                 .ForMember(x => x.UserId, src => src.MapFrom(z => z.Id));
+
+            CreateMap<GetUserRegister.Query, E.User>();
+            CreateMap<E.User, GetUserRegister.Model>();
         }
     }
 }

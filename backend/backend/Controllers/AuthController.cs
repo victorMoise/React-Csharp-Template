@@ -1,4 +1,4 @@
-﻿using backend.Queries.User;
+﻿using backend.Queries.Auth;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
 
@@ -6,21 +6,21 @@ namespace backend.Controllers
 {
     [ApiController]
     [Route("api/[controller]")]
-    public class UserController : ControllerBase
+    public class AuthController : ControllerBase
     {
         private readonly IMediator _mediator;
 
-        public UserController(IMediator mediator)
+        public AuthController(IMediator mediator)
         {
             _mediator = mediator;
         }
 
         [HttpPost("register")]
-        public async Task<IActionResult> Register()
+        public async Task<IActionResult> Register([FromBody] GetUserRegister.Query query)
         {
-            throw new NotImplementedException();
+            var result = await _mediator.Send(query);
+            return Ok(result);
         }
-
 
         [HttpPost("login")]
         public async Task<IActionResult> Login([FromBody] GetUserLogin.Query query)

@@ -4,7 +4,7 @@ using backend.Service.Encryption;
 using backend.Service.Token;
 using MediatR;
 
-namespace backend.Queries.User
+namespace backend.Queries.Auth
 {
     public class GetUserLogin 
     {

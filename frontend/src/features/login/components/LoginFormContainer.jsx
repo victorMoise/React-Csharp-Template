@@ -3,11 +3,12 @@ import { useAuth } from "../../../contexts/AuthContext";
 import { Link, useNavigate } from "react-router-dom";
 import { Button, Card, Grid, TextField, Typography } from "@mui/material";
 import useToast from "../../../hooks/useToast";
-import { loginUser } from "../../../api/userApi";
 import { useTranslation } from "react-i18next";
 import LanguageSelector from "../../../common/components/LanguageSelector";
 import Toast from "../../../common/components/Toast";
 import PasswordField from "../../../common/components/PasswordField";
+import { useRequest } from "../../../hooks/useRequest";
+import { endpoints } from "../../../utils/endpoints";
 
 function LoginForm() {
   const { login } = useAuth();
@@ -19,6 +20,12 @@ function LoginForm() {
   const navigate = useNavigate();
   const { t } = useTranslation("common");
   const { toast, showToast, handleClose } = useToast();
+  const { sendRequest } = useRequest(
+    endpoints.auth.login,
+    {
+      method: "POST",
+    }
+  );
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -50,7 +57,11 @@ function LoginForm() {
       }
 
       try {
-        const data = await loginUser(username, password);
+        const data = await sendRequest({
+          Username: username,
+          Password: password,
+        });
+
         login(data.token, username);
         navigate("/home");
       } catch (error) {
@@ -58,7 +69,7 @@ function LoginForm() {
         setErrors({ username: true, password: true });
       }
     },
-    [form, login, navigate, showToast, t]
+    [form, login, navigate, showToast, t, sendRequest]
   );
 
   return (

@@ -1,7 +1,9 @@
-﻿using backend.Repository.User;
+﻿using AutoMapper;
+using backend.Entities;
+using backend.Repository.User;
 using MediatR;
 
-namespace backend.Queries.User
+namespace backend.Queries.Auth
 {
     public class GetUserRegister
     {
@@ -21,17 +23,19 @@ namespace backend.Queries.User
         internal class QueryHandler : IRequestHandler<Query, Model>
         {
             private readonly IUserRepository _userRepository;
+            private readonly IMapper _mapper;
 
-            public QueryHandler(IUserRepository repository)
+            public QueryHandler(IUserRepository repository, IMapper mapper)
             {
                 _userRepository = repository;
+                _mapper = mapper;
             }
 
             public async Task<Model> Handle(Query request, CancellationToken cancellationToken)
             {
-
-
-                return new Model();
+                var user = _mapper.Map<User>(request);
+                var result = await _userRepository.SaveUser(user);
+                return _mapper.Map<Model>(result);
             }
         }
     }

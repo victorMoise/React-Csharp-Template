@@ -1,5 +1,4 @@
-﻿using backend.Service.Token;
-using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.EntityFrameworkCore;
 using E = backend.Entities;
 
 namespace backend.Repository.User
