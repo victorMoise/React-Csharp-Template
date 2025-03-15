@@ -1,8 +1,8 @@
 ﻿using AutoMapper;
-using backend.Entities;
 using backend.Repository.User;
 using backend.Service.Encryption;
 using MediatR;
+using E = backend.Entities;
 
 namespace backend.Queries.Auth
 {
@@ -39,7 +39,7 @@ namespace backend.Queries.Auth
                 var password = _encryptionService.Encrypt(request.Password);
                 request.Password = password;
 
-                var user = _mapper.Map<User>(request);
+                var user = _mapper.Map<E.User>(request);
                 var result = await _userRepository.SaveUser(user);
                 return _mapper.Map<Model>(result);
             }
