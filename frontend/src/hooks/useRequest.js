@@ -4,7 +4,6 @@ import { instance } from "../utils/functions/axios";
 export const useRequest = (endpoint, options = {}) => {
   const [data, setData] = useState(null);
   const [loading, setLoading] = useState(false);
-  const [error, setError] = useState(null);
 
   const requestHeaders = {
     "Content-Type": "application/json",
@@ -25,13 +24,26 @@ export const useRequest = (endpoint, options = {}) => {
       setData(response.data);
       return response.data;
     } catch (err) {
-      setError(err);
-      throw err;
+      if (err.response) {
+        if (err.response.data && err.response.data.errors) {
+          const validationErrors = err.response.data.errors;
+          const errorMessages = Object.keys(validationErrors).map((field) => {
+            return `${field}: ${validationErrors[field].join(", ")}`;
+          });
+
+          throw new Error(`Validation errors: ${errorMessages.join(", ")}`);
+        } else {
+          throw new Error(`API Error: ${err.response.data}`);
+        }
+      } else if (err.request) {
+        throw new Error("Request Error: No response received");
+      } else {
+        throw new Error(`Error: ${err.message}`);
+      }
     } finally {
       setLoading(false);
     }
   };
 
-  return { data, loading, error, sendRequest };
+  return { data, loading, sendRequest };
 };
-

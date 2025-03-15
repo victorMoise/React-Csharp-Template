@@ -13,9 +13,9 @@ namespace backend.Configuration
             builder.Property(x => x.Username).IsRequired().HasMaxLength(255);
             builder.Property(x => x.Email).IsRequired().HasMaxLength(100);
             builder.Property(x => x.Password).IsRequired().HasMaxLength(255);
-            builder.Property(x => x.FirstName).IsRequired().HasMaxLength(100);
-            builder.Property(x => x.LastName).IsRequired().HasMaxLength(100);
-            builder.Property(x => x.PhoneNumber).IsRequired().HasMaxLength(20);
+            builder.Property(x => x.FirstName).HasMaxLength(100);
+            builder.Property(x => x.LastName).HasMaxLength(100);
+            builder.Property(x => x.PhoneNumber).HasMaxLength(20);
             builder.Property(x => x.RoleId).HasDefaultValue(UserRoles.USER);
         }
     }

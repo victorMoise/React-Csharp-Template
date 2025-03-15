@@ -39,7 +39,7 @@ namespace backend.Queries.Auth
 
             public async Task<Model> Handle(Query request, CancellationToken cancellationToken)
             {
-                var user = await _userRepository.GetUser(request.Username) ?? throw new Exception("User.Backend.Error.UserNotFound");
+                var user = await _userRepository.GetUserByUsername(request.Username) ?? throw new Exception("User.Backend.Error.UserNotFound");
                 if (!_encryptionService.Verify(request.Password, user.Password))
                     throw new Exception("User.Backend.Error.PasswordIncorrect");
 

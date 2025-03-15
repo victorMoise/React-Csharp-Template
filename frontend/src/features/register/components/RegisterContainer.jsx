@@ -85,7 +85,7 @@ const RegisterForm = () => {
         });
 
         showToast(
-          "Account created successfully. Redirecting to login...",
+          t("Signup.AccountCreated"),
           "success"
         );
 
@@ -93,31 +93,17 @@ const RegisterForm = () => {
           navigate("/");
         }, 2000);
       } catch (error) {
-        const errorMessage =
-          t(error.response?.data?.message) ||
-          t(error?.message) ||
-          "An error occurred";
-
+        const errorMessage = error.message || t("General.Error");
         showToast(errorMessage, "error");
-
-        if (errorMessage === t("errorEmptyUsername")) {
-          setErrors({ ...errors, username: true });
-        }
-        if (errorMessage === t("errorEmptyEmail")) {
-          setErrors({ ...errors, email: true });
-        }
-        if (errorMessage === t("errorEmptyPassword")) {
-          setErrors({ ...errors, password: true });
-        }
-        if (errorMessage === t("errorEmptyConfirmPassword")) {
-          setErrors({ ...errors, confirmPassword: true });
-        }
-        if (errorMessage === t("errorWeakPassword")) {
-          setErrors({ ...errors, password: true });
-        }
+        setErrors({
+          username: true,
+          email: true,
+          password: true,
+          confirmPassword: true,
+        });
       }
     },
-    [form, errors, navigate, showToast, t, sendRequest]
+    [form, navigate, showToast, t, sendRequest]
   );
 
   return (

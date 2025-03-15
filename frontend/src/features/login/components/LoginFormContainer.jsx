@@ -65,7 +65,10 @@ function LoginForm() {
         login(data.token, username);
         navigate("/home");
       } catch (error) {
-        showToast(t("Login.Error.InvalidCredentials"), "error");
+        showToast(
+          error.message || t("Login.Error.InvalidCredentials"),
+          "error"
+        );
         setErrors({ username: true, password: true });
       }
     },

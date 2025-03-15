@@ -1,4 +1,5 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using backend.Constants;
+using Microsoft.EntityFrameworkCore;
 using E = backend.Entities;
 
 namespace backend.Repository.User
@@ -12,16 +13,25 @@ namespace backend.Repository.User
             _dbContext = dbContext;
         }
 
-        public Task<E.User> GetUser(string username)
+        public Task<E.User> GetUserByUsername(string username)
         {
-            var user = _dbContext.Users.FirstOrDefaultAsync(u => u.Username == username);
+            var user = _dbContext.Users.Include(x => x.Role).FirstOrDefaultAsync(u => u.Username == username);
+            return user;
+        }
+
+        public Task<E.User> GetUserByEmail(string email)
+        {
+            var user = _dbContext.Users.Include(x => x.Role).FirstOrDefaultAsync(u => u.Email == email);
             return user;
         }
 
         public async Task<E.User> SaveUser(E.User user)
         {
             if (user.Id == default)
+            {
+                user.RoleId = UserRoles.USER;
                 _dbContext.Users.Add(user);
+            }
             else
                 _dbContext.Users.Update(user);
 

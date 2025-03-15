@@ -1,55 +1,56 @@
 {
   "Login": {
     "Error": {
-      "UsernameAndPasswordRequired": "Introduceti un nume de utilizator si o parola",
-      "UsernameRequired": "Introduceti un nume de utilizator",
-      "PasswordRequired": "Introduceti o parola",
+      "UsernameAndPasswordRequired": "Introduceți un nume de utilizator și o parolă",
+      "UsernameRequired": "Introduceți un nume de utilizator",
+      "PasswordRequired": "Introduceți o parolă",
       "InvalidCredentials": "Numele de utilizator sau parola sunt invalide"
     },
-    "NoAccount": "Nu aveti un cont?",
-    "CreateAccount": "Creeaza cont",
+    "NoAccount": "Nu aveți un cont?",
+    "CreateAccount": "Creează cont",
     "LoginButton": "Login",
     "Login": "Login"
   },
   "InputFields": {
     "Username": "Nume de utilizator",
-    "Password": "Parola",
+    "Password": "Parolă",
     "Email": "Email",
-    "ConfirmPassword": "Confirma parola",
-    "TogglePasswordVisibility": "comuta vizibilitatea parolei"
+    "ConfirmPassword": "Confirmați parola",
+    "TogglePasswordVisibility": "Comuta vizibilitatea parolei"
   },
   "Signup": {
     "Error": {
-      "AllFieldsRequired": "Va rugam sa completati toate campurile",
-      "UsernameRequired": "Va rugam sa introduceti un nume de utilizator",
-      "PasswordRequired": "Va rugam sa introduceti o parola",
-      "EmailRequired": "Va rugam sa introduceti un email",
-      "ConfirmPasswordRequired": "Va rugam sa confirmati parola",
+      "AllFieldsRequired": "Vă rugăm să completați toate câmpurile",
+      "UsernameRequired": "Vă rugăm să introduceți un nume de utilizator",
+      "PasswordRequired": "Vă rugăm să introduceți o parolă",
+      "EmailRequired": "Vă rugăm să introduceți un email",
+      "ConfirmPasswordRequired": "Vă rugăm să confirmați parola",
       "PasswordsDoNotMatch": "Parolele nu se potrivesc"
     },
-    "Signup": "Inregistrare",
-    "SignupButton": "Creeaza cont",
-    "AlreadyHaveAnAccount": "Aveti deja un cont?",
-    "Login": "Login"
+    "Signup": "Creează cont",
+    "AlreadyHaveAnAccount": "Aveți deja un cont?",
+    "Login": "Login",
+    "AccountCreated": "Cont creat cu succes, sunteți redirecționat la pagina de login"
   },
   "Sidebar": {
-    "Home": "Acasa",
+    "Home": "Acasă",
     "Profile": "Profil",
     "Logout": "Deconectare"
   },
   "Profile": {
     "ProfileDetails": "Detalii profil",
-    "SaveChanges": "Salveaza modificarile",
+    "SaveChanges": "Salvează modificările",
     "ProfileUpdated": "Profil actualizat cu succes",
     "ErrorFetchingData": "Eroare la preluarea datelor"
   },
   "Home": {
-    "Welcome": "Bine ati venit"
+    "Welcome": "Bine ați venit"
   },
   "Common": {
-    "Cancel": "Anuleaza",
-    "Save": "Salveaza",
-    "Actions": "Actiuni",
-    "Close": "Inchide"
+    "Cancel": "Anulează",
+    "Save": "Salvează",
+    "Actions": "Acțiuni",
+    "Close": "Închide",
+    "Error": "A apărut o eroare în timpul procesării cererii"
   }
 }

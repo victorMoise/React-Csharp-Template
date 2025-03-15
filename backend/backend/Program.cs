@@ -1,3 +1,6 @@
+using backend.Validators.Auth;
+using FluentValidation;
+using FluentValidation.AspNetCore;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
@@ -19,6 +22,9 @@ builder.Services.Scan(scan => scan
     .AsImplementedInterfaces()
     .WithScopedLifetime()
 );
+
+builder.Services.AddFluentValidationAutoValidation()
+                .AddValidatorsFromAssemblyContaining<GetUserLoginValidator>();
 
 builder.Services.AddMediatR(cfg => cfg.RegisterServicesFromAssemblies(Assembly.GetExecutingAssembly()));
 builder.Services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());

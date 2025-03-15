@@ -18,7 +18,7 @@ namespace backend.Service.Token
         public string CreateToken(User user)
         {
             var tokenHandler = new JwtSecurityTokenHandler();
-            var key = Encoding.UTF8.GetBytes(_configuration["Jwt:Secret"]); // Secure way to retrieve secret
+            var key = Encoding.UTF8.GetBytes(_configuration["Jwt:Secret"]);
 
             var claims = new[]
             {

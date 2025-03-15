@@ -1,6 +1,7 @@
 ﻿using AutoMapper;
 using backend.Entities;
 using backend.Repository.User;
+using backend.Service.Encryption;
 using MediatR;
 
 namespace backend.Queries.Auth
@@ -11,7 +12,7 @@ namespace backend.Queries.Auth
         {
             public string Username { get; init; }
             public string Email { get; init; }
-            public string Password { get; init; }
+            public string Password { get; set; }
         }
 
         public class Model
@@ -24,15 +25,20 @@ namespace backend.Queries.Auth
         {
             private readonly IUserRepository _userRepository;
             private readonly IMapper _mapper;
+            private readonly IEncryptionService _encryptionService;
 
-            public QueryHandler(IUserRepository repository, IMapper mapper)
+            public QueryHandler(IUserRepository repository, IMapper mapper, IEncryptionService encryptionService)
             {
                 _userRepository = repository;
                 _mapper = mapper;
+                _encryptionService = encryptionService;
             }
 
             public async Task<Model> Handle(Query request, CancellationToken cancellationToken)
             {
+                var password = _encryptionService.Encrypt(request.Password);
+                request.Password = password;
+
                 var user = _mapper.Map<User>(request);
                 var result = await _userRepository.SaveUser(user);
                 return _mapper.Map<Model>(result);
