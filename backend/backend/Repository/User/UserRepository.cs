@@ -13,13 +13,13 @@ namespace backend.Repository.User
             _dbContext = dbContext;
         }
 
-        public Task<E.User> GetUserByUsername(string username)
+        public Task<E.User?> GetUserByUsername(string username)
         {
             var user = _dbContext.Users.Include(x => x.Role).FirstOrDefaultAsync(u => u.Username == username);
             return user;
         }
 
-        public Task<E.User> GetUserByEmail(string email)
+        public Task<E.User?> GetUserByEmail(string email)
         {
             var user = _dbContext.Users.Include(x => x.Role).FirstOrDefaultAsync(u => u.Email == email);
             return user;
@@ -36,6 +36,18 @@ namespace backend.Repository.User
                 _dbContext.Users.Update(user);
 
             await _dbContext.SaveChangesAsync();
+            return user;
+        }
+
+        public Task<E.User?> GetDetailedUser(int userId)
+        {
+            var user = _dbContext.Users
+                .Where(x => x.Id == userId)
+                .Include(x => x.Role)
+                .Include(x => x.Address)
+                    .ThenInclude(x => x.City)
+                        .ThenInclude(x => x.Country)
+                .FirstOrDefaultAsync();
             return user;
         }
     }

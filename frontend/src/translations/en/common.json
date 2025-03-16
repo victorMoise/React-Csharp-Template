@@ -34,14 +34,17 @@
   },
   "Sidebar": {
     "Home": "Home",
-    "Profile": "Profile",
+    "MyAccount": "My account",
     "Logout": "Logout"
   },
-  "Profile": {
-    "ProfileDetails": "Profile details",
-    "SaveChanges": "Save changes",
-    "ProfileUpdated": "Profile updated successfully",
-    "ErrorFetchingData": "Error fetching data"
+  "MyAccount": {
+    "MyAccount": "Account details",
+    "Username": "Username",
+    "Email": "Email",
+    "PhoneNumber": "Phone number",
+    "Error": {
+      "FetchingData": "An error occurred while fetching account details"
+    }
   },
   "Home": {
     "Welcome": "Welcome"

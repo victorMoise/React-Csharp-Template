@@ -34,14 +34,17 @@
   },
   "Sidebar": {
     "Home": "Acasă",
-    "Profile": "Profil",
+    "MyAccount": "Contul meu",
     "Logout": "Deconectare"
   },
-  "Profile": {
-    "ProfileDetails": "Detalii profil",
-    "SaveChanges": "Salvează modificările",
-    "ProfileUpdated": "Profil actualizat cu succes",
-    "ErrorFetchingData": "Eroare la preluarea datelor"
+  "MyAccount": {
+    "MyAccount": "Detalii cont",
+    "Username": "Nume de utilizator",
+    "Email": "Email",
+    "PhoneNumber": "Număr de telefon",
+    "Error": {
+      "FetchingData": "A apărut o eroare în timpul preluării detaliilor contului"
+    }
   },
   "Home": {
     "Welcome": "Bine ați venit"

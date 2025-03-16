@@ -7,25 +7,19 @@ import { useTranslation } from "react-i18next";
 import LanguageSelector from "../../../common/components/LanguageSelector";
 import Toast from "../../../common/components/Toast";
 import PasswordField from "../../../common/components/PasswordField";
-import { useRequest } from "../../../hooks/useRequest";
 import { endpoints } from "../../../utils/endpoints";
+import { axiosInstance } from "../../../utils/axios";
 
 function LoginForm() {
   const { login } = useAuth();
   const [form, setForm] = useState({
-    username: "",
-    password: "",
+    username: "victor",
+    password: "parolaVictor",
   });
   const [errors, setErrors] = useState({ username: false, password: false });
   const navigate = useNavigate();
   const { t } = useTranslation("common");
   const { toast, showToast, handleClose } = useToast();
-  const { sendRequest } = useRequest(
-    endpoints.auth.login,
-    {
-      method: "POST",
-    }
-  );
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -57,12 +51,12 @@ function LoginForm() {
       }
 
       try {
-        const data = await sendRequest({
-          Username: username,
-          Password: password,
+        const { data } = await axiosInstance.post(endpoints.auth.login, {
+          username,
+          password,
         });
 
-        login(data.token, username);
+        await login(data.token, username);
         navigate("/home");
       } catch (error) {
         showToast(
@@ -72,7 +66,7 @@ function LoginForm() {
         setErrors({ username: true, password: true });
       }
     },
-    [form, login, navigate, showToast, t, sendRequest]
+    [form, login, navigate, showToast, t]
   );
 
   return (

@@ -20,7 +20,7 @@ namespace backend.Controllers
         [HttpGet]
         public async Task<IActionResult> GetUserDetails()
         {
-            var result = await _mediator.Send(new GetUser.Query());
+            var result = await _mediator.Send(new GetUserDetails.Query());
             return Ok(result);
         }
     }

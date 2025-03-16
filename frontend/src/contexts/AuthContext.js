@@ -1,4 +1,5 @@
 import React, { createContext, useContext, useState, useEffect } from "react";
+import { setAuthToken } from "../utils/axios";
 
 const AuthContext = createContext();
 
@@ -19,8 +20,8 @@ export const AuthProvider = ({ children }) => {
   const login = async (token, username) => {
     setIsAuthenticated(true);
     setToken(token);
+    setAuthToken(token);
     localStorage.setItem("token", token);
-    localStorage.setItem("username", username);
   };
 
   const logout = () => {

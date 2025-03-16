@@ -9,10 +9,12 @@ namespace backend.Service.Token
     public class TokenService : ITokenService
     {
         private readonly IConfiguration _configuration;
+        private readonly IHttpContextAccessor _httpContextAccessor;
 
-        public TokenService(IConfiguration configuration)
+        public TokenService(IConfiguration configuration, IHttpContextAccessor httpContextAccessor)
         {
             _configuration = configuration;
+            _httpContextAccessor = httpContextAccessor;
         }
 
         public string CreateToken(User user)
@@ -41,14 +43,23 @@ namespace backend.Service.Token
             return tokenHandler.WriteToken(token);
         }
 
-        private ClaimsPrincipal? GetClaimsPrincipal(string token)
+        private string? GetToken()
         {
+            var token = _httpContextAccessor.HttpContext?.Request.Headers.Authorization.ToString().Replace("Bearer ", "");
+            return string.IsNullOrEmpty(token) ? null : token;
+        }
+
+        private ClaimsPrincipal? GetClaimsPrincipal()
+        {
+            var token = GetToken();
+            if (string.IsNullOrEmpty(token)) return null;
+
             var tokenHandler = new JwtSecurityTokenHandler();
             var key = Encoding.UTF8.GetBytes(_configuration["Jwt:Secret"]);
 
             try
             {
-                var principal = tokenHandler.ValidateToken(token, new TokenValidationParameters
+                return tokenHandler.ValidateToken(token, new TokenValidationParameters
                 {
                     ValidateIssuerSigningKey = true,
                     IssuerSigningKey = new SymmetricSecurityKey(key),
@@ -59,8 +70,6 @@ namespace backend.Service.Token
                     ValidateLifetime = true,
                     ClockSkew = TimeSpan.Zero
                 }, out _);
-
-                return principal;
             }
             catch
             {
@@ -68,30 +77,37 @@ namespace backend.Service.Token
             }
         }
 
-        public string? GetUserId(string token)
+        public int? GetUserId()
         {
-            return GetClaimsPrincipal(token)?
+            var userIdClaim = GetClaimsPrincipal()?
                 .FindFirst(ClaimTypes.NameIdentifier)?
                 .Value;
+
+            if (int.TryParse(userIdClaim, out int userId))
+            {
+                return userId;
+            }
+
+            return null;
         }
 
-        public string? GetUsername(string token)
+        public string? GetUsername()
         {
-            return GetClaimsPrincipal(token)?
+            return GetClaimsPrincipal()?
                 .FindFirst(ClaimTypes.Name)?
                 .Value;
         }
 
-        public string? GetEmail(string token)
+        public string? GetEmail()
         {
-            return GetClaimsPrincipal(token)?
+            return GetClaimsPrincipal()?
                 .FindFirst(ClaimTypes.Email)?
                 .Value;
         }
 
-        public string? GetRole(string token)
+        public string? GetRole()
         {
-            return GetClaimsPrincipal(token)?
+            return GetClaimsPrincipal()?
                 .FindFirst(ClaimTypes.Role)?
                 .Value;
         }

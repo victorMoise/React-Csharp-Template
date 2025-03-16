@@ -7,16 +7,13 @@ import { useNavigate } from "react-router-dom";
 import Header from "./RegisterHeader";
 import InputFields from "./RegisterInputFields";
 import SubmitButton from "./RegisterSubmitButton";
-import { useRequest } from "../../../hooks/useRequest";
 import { endpoints } from "../../../utils/endpoints";
+import { axiosInstance } from "../../../utils/axios";
 
 const RegisterForm = () => {
   const { t } = useTranslation("common");
   const { toast, showToast, handleClose } = useToast();
   const navigate = useNavigate();
-  const { sendRequest } = useRequest(endpoints.auth.register, {
-    method: "POST",
-  });
 
   const [form, setForm] = useState({
     username: "",
@@ -78,16 +75,13 @@ const RegisterForm = () => {
       }
 
       try {
-        await sendRequest({
-          Username: username,
-          Email: email,
-          Password: password,
+        await axiosInstance.post(endpoints.auth.register, {
+          username,
+          email,
+          password,
         });
 
-        showToast(
-          t("Signup.AccountCreated"),
-          "success"
-        );
+        showToast(t("Signup.AccountCreated"), "success");
 
         setTimeout(() => {
           navigate("/");
@@ -103,7 +97,7 @@ const RegisterForm = () => {
         });
       }
     },
-    [form, navigate, showToast, t, sendRequest]
+    [form, navigate, showToast, t]
   );
 
   return (
