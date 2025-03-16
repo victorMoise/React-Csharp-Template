@@ -41,7 +41,10 @@
     "MyAccount": "Detalii cont",
     "Username": "Nume de utilizator",
     "Email": "Email",
+    "FirstName": "Prenume",
+    "LastName": "Nume",
     "PhoneNumber": "Număr de telefon",
+    "Age": "Vârstă",
     "Error": {
       "FetchingData": "A apărut o eroare în timpul preluării detaliilor contului"
     }

@@ -41,7 +41,10 @@
     "MyAccount": "Account details",
     "Username": "Username",
     "Email": "Email",
+    "FirstName": "First name",
+    "LastName": "Last name",
     "PhoneNumber": "Phone number",
+    "Age": "Age",
     "Error": {
       "FetchingData": "An error occurred while fetching account details"
     }
