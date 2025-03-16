@@ -1,4 +1,6 @@
-using backend.Repository.Test;
+using backend.Validators.Auth;
+using FluentValidation;
+using FluentValidation.AspNetCore;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
@@ -7,39 +9,55 @@ using System.Text;
 
 var builder = WebApplication.CreateBuilder(args);
 
-// Add services to the container.
 builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
-builder.Services.AddScoped<ITestRepository, TestRepository>();
-builder.Services.AddMediatR(cfg => cfg.RegisterServicesFromAssemblies(Assembly.GetExecutingAssembly()));
+builder.Services.AddHttpContextAccessor();
 
+builder.Services.Scan(scan => scan
+    .FromAssemblyOf<Program>()
+    .AddClasses(classes => classes.Where(type =>
+        type.Namespace != null &&
+        (type.Namespace.StartsWith("backend.Repository") || type.Namespace.StartsWith("backend.Service"))
+    ))
+    .AsImplementedInterfaces()
+    .WithScopedLifetime()
+);
+
+builder.Services.AddFluentValidationAutoValidation()
+                .AddValidatorsFromAssemblyContaining<GetUserLoginValidator>();
+
+builder.Services.AddMediatR(cfg => cfg.RegisterServicesFromAssemblies(Assembly.GetExecutingAssembly()));
+builder.Services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
 
 builder.Services.AddDbContext<AppDbContext>(options =>
     options.UseNpgsql(builder.Configuration.GetConnectionString("DefaultConnection")));
 
-// Add CORS policy
 builder.Services.AddCors(options =>
 {
     options.AddPolicy("AllowReactApp",
         builder =>
         {
-            builder.WithOrigins("http://localhost:3000") // Your React app's URL
+            builder.WithOrigins("http://localhost:3000") 
                    .AllowAnyHeader()
                    .AllowAnyMethod();
         });
 });
 
+var configuration = builder.Configuration;
+var key = Encoding.UTF8.GetBytes(configuration["Jwt:Secret"]);
 builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
     .AddJwtBearer(options =>
     {
         options.TokenValidationParameters = new TokenValidationParameters
         {
             ValidateIssuerSigningKey = true,
-            IssuerSigningKey = new SymmetricSecurityKey(Encoding.ASCII.GetBytes("jAzfOFc7J4XvsNnt5+X3U9VOHNYaZz7QvvgJcMFg+aU=")),
-            ValidateIssuer = false,
-            ValidateAudience = false
+            IssuerSigningKey = new SymmetricSecurityKey(key),
+            ValidateIssuer = true,
+            ValidateAudience = true,
+            ValidIssuer = configuration["Jwt:Issuer"],
+            ValidAudience = configuration["Jwt:Audience"]
         };
     });
 
@@ -54,10 +72,9 @@ if (app.Environment.IsDevelopment())
 
 app.UseHttpsRedirection();
 
-// **Order matters here:**
-app.UseRouting();  // Enable routing middleware
+app.UseRouting();  
 
-app.UseCors("AllowReactApp");  // CORS must be applied **after** UseRouting but **before** UseEndpoints
+app.UseCors("AllowReactApp"); 
 
 app.UseAuthentication();
 app.UseAuthorization();

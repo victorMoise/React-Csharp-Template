@@ -3,17 +3,18 @@ import { useAuth } from "../../../contexts/AuthContext";
 import { Link, useNavigate } from "react-router-dom";
 import { Button, Card, Grid, TextField, Typography } from "@mui/material";
 import useToast from "../../../hooks/useToast";
-import { loginUser } from "../../../api/userApi";
 import { useTranslation } from "react-i18next";
 import LanguageSelector from "../../../common/components/LanguageSelector";
 import Toast from "../../../common/components/Toast";
 import PasswordField from "../../../common/components/PasswordField";
+import { endpoints } from "../../../utils/endpoints";
+import { axiosInstance } from "../../../utils/axios";
 
 function LoginForm() {
   const { login } = useAuth();
   const [form, setForm] = useState({
-    username: "",
-    password: "",
+    username: "victor",
+    password: "parolaVictor",
   });
   const [errors, setErrors] = useState({ username: false, password: false });
   const navigate = useNavigate();
@@ -50,11 +51,18 @@ function LoginForm() {
       }
 
       try {
-        const data = await loginUser(username, password);
-        login(data.token, username);
+        const { data } = await axiosInstance.post(endpoints.auth.login, {
+          username,
+          password,
+        });
+
+        await login(data.token, username);
         navigate("/home");
       } catch (error) {
-        showToast(t("Login.Error.InvalidCredentials"), "error");
+        showToast(
+          error.message || t("Login.Error.InvalidCredentials"),
+          "error"
+        );
         setErrors({ username: true, password: true });
       }
     },

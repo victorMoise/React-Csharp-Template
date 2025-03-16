@@ -2,6 +2,6 @@
 {
     public interface ITestRepository
     {
-        public Task<int> TestConnection();
+        Task<int> TestConnection();
     }
 }

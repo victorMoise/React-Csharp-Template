@@ -12,7 +12,7 @@ const SubmitButton = ({ handleSubmit, t }) => (
       sx={{ marginTop: 2, marginBottom: 2 }}
       onClick={handleSubmit}
     >
-      {t("Signup.SignupButton")}
+      {t("Signup.Signup")}
     </Button>
     <Typography variant="body2" align="center" sx={{ marginTop: 2 }}>
       {t("Signup.AlreadyHaveAnAccount")}{" "}

@@ -32,13 +32,11 @@ const AppRoutes = (props) => {
       <Route path="/register" element={<RegisterForm />} />
       <Route
         path="/home"
-        element={<HomeContainer />}
-        //element={<ProtectedRoute element={<HomeContainer />} />}
+        element={<ProtectedRoute element={<HomeContainer />} />}
       />
       <Route
         path="/profile"
-        element={<ProfileContainer />}
-        //element={<ProtectedRoute element={<ProfileContainer />} />}
+        element={<ProtectedRoute element={<ProfileContainer />} />}
       />
     </Routes>
   );

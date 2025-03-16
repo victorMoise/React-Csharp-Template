@@ -4,7 +4,7 @@ const useToast = () => {
   const [toast, setToast] = useState({
     open: false,
     message: "",
-    severity: "success", // default severity
+    severity: "success",
   });
 
   const showToast = useCallback((message, severity = "success") => {

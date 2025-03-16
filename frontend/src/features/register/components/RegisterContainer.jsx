@@ -4,16 +4,11 @@ import { useTranslation } from "react-i18next";
 import useToast from "../../../hooks/useToast";
 import Toast from "../../../common/components/Toast";
 import { useNavigate } from "react-router-dom";
-import { registerUser } from "../../../api/userApi";
 import Header from "./RegisterHeader";
 import InputFields from "./RegisterInputFields";
 import SubmitButton from "./RegisterSubmitButton";
-
-const errorEmptyUsername = "BackendErrors.EmptyUsername";
-const errorEmptyEmail = "BackendErrors.EmptyEmail";
-const errorEmptyPassword = "BackendErrors.EmptyPassword";
-const errorEmptyConfirmPassword = "BackendErrors.EmptyConfirmPassword";
-const errorWeakPassword = "BackendErrors.WeakPassword";
+import { endpoints } from "../../../utils/endpoints";
+import { axiosInstance } from "../../../utils/axios";
 
 const RegisterForm = () => {
   const { t } = useTranslation("common");
@@ -80,34 +75,29 @@ const RegisterForm = () => {
       }
 
       try {
-        await registerUser(username, email, password);
-        showToast(
-          "Account created successfully. Redirecting to login...",
-          "success"
-        );
+        await axiosInstance.post(endpoints.auth.register, {
+          username,
+          email,
+          password,
+        });
+
+        showToast(t("Signup.AccountCreated"), "success");
 
         setTimeout(() => {
           navigate("/");
         }, 2000);
       } catch (error) {
-        const errorMessage =
-          t(error.response?.data?.message) ||
-          t(error?.message) ||
-          "An error occurred";
+        const errorMessage = error.message || t("General.Error");
         showToast(errorMessage, "error");
-        errorMessage === t(errorEmptyUsername) &&
-          setErrors({ ...errors, username: true });
-        errorMessage === t(errorEmptyEmail) &&
-          setErrors({ ...errors, email: true });
-        errorMessage === t(errorEmptyPassword) &&
-          setErrors({ ...errors, password: true });
-        errorMessage === t(errorEmptyConfirmPassword) &&
-          setErrors({ ...errors, confirmPassword: true });
-        errorMessage === t(errorWeakPassword) &&
-          setErrors({ ...errors, password: true });
+        setErrors({
+          username: true,
+          email: true,
+          password: true,
+          confirmPassword: true,
+        });
       }
     },
-    [errors, form, navigate, showToast, t]
+    [form, navigate, showToast, t]
   );
 
   return (

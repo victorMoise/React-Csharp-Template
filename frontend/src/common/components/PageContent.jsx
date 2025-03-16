@@ -12,11 +12,11 @@ const PageContent = ({ pageTitle, children }) => {
     const scrollbarStyle = document.documentElement.style;
 
     if (isDarkMode) {
-      scrollbarStyle.setProperty("--scrollbar-bg", "#333"); 
-      scrollbarStyle.setProperty("--scrollbar-thumb", "#888"); 
+      scrollbarStyle.setProperty("--scrollbar-bg", "#333");
+      scrollbarStyle.setProperty("--scrollbar-thumb", "#888");
     } else {
-      scrollbarStyle.setProperty("--scrollbar-bg", "#f1f1f1"); 
-      scrollbarStyle.setProperty("--scrollbar-thumb", "#888"); 
+      scrollbarStyle.setProperty("--scrollbar-bg", "#f1f1f1");
+      scrollbarStyle.setProperty("--scrollbar-thumb", "#888");
     }
   }, [isDarkMode]);
 

@@ -33,7 +33,7 @@ const SidebarAndHeader = (props) => {
       },
     },
     {
-      label: `${t("Sidebar.Profile")}`,
+      label: `${t("Sidebar.MyAccount")}`,
       icon: <PersonIcon />,
       onClick: () => {
         navigate("/profile");
