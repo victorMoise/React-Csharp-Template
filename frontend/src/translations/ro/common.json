@@ -45,15 +45,18 @@
     "LastName": "Nume",
     "PhoneNumber": "Număr de telefon",
     "Age": "Vârstă",
-    "Error": {
-      "FetchingData": "A apărut o eroare în timpul preluării detaliilor contului"
-    },
+    "Save": "Salvează",
+    "DetailsUpdated": "Detaliile contului au fost actualizate cu succes",
     "Address": {
       "Address": "Adresă",
       "Country": "Țară",
       "City": "Oraș",
       "Street": "Stradă",
       "Details": "Detalii"
+    },
+    "Error": {
+      "FetchingData": "A apărut o eroare în timpul preluării detaliilor contului",
+      "SavingDetails": "A apărut o eroare în timpul salvării detaliilor contului"
     }
   },
   "Home": {

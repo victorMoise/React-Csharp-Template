@@ -5,6 +5,7 @@ export const endpoints = {
   },
   user: {
     details: "/user",
+    address: "/user/address",
     countries: "/user/countries",
     cities: "/user/cities?countryId={countryId}",
   },

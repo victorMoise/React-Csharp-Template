@@ -13,19 +13,34 @@ namespace backend.Repository.User
             _dbContext = dbContext;
         }
 
-        public Task<E.User?> GetUserByUsername(string username)
+        public Task<E.User?> GetUserByUsername(string username, bool tracking)
         {
-            var user = _dbContext.Users.Include(x => x.Role).FirstOrDefaultAsync(u => u.Username == username);
-            return user;
+            var query = _dbContext.Users.Where(u => u.Username == username);
+            if (!tracking)
+                query = query.AsNoTracking();
+
+            return query.FirstOrDefaultAsync();
         }
 
-        public Task<E.User?> GetUserByEmail(string email)
+        public Task<E.User?> GetUserByEmail(string email, bool tracking)
         {
-            var user = _dbContext.Users.Include(x => x.Role).FirstOrDefaultAsync(u => u.Email == email);
-            return user;
+            var query = _dbContext.Users.Where(u => u.Email == email);
+            if (!tracking)
+                query = query.AsNoTracking();
+
+            return query.FirstOrDefaultAsync();
         }
 
-        public async Task<E.User> SaveUser(E.User user)
+        public Task<E.User?> GetUserById(int id, bool tracking)
+        {
+            var query = _dbContext.Users.Where(u => u.Id == id);
+            if (!tracking)
+                query = query.AsNoTracking();
+
+            return query.FirstOrDefaultAsync();
+        }
+
+        public async Task<E.User> SaveUserDetails(E.User user)
         {
             if (user.Id == default)
             {
@@ -33,22 +48,52 @@ namespace backend.Repository.User
                 _dbContext.Users.Add(user);
             }
             else
+            {
+                var existingUser = await _dbContext.Users.AsNoTracking().FirstOrDefaultAsync(u => u.Id == user.Id);
+
+                if (existingUser != null)
+                {
+                    user.Password = existingUser.Password;
+                    user.RoleId = existingUser.RoleId;
+                    user.AddressId = existingUser.AddressId;
+
+                    _dbContext.Entry(user).Property(u => u.Password).IsModified = false;
+
+                    _dbContext.Entry(user).Property(u => u.Username).IsModified = true;
+                    _dbContext.Entry(user).Property(u => u.Email).IsModified = true;
+                    _dbContext.Entry(user).Property(u => u.FirstName).IsModified = true;
+                    _dbContext.Entry(user).Property(u => u.LastName).IsModified = true;
+                    _dbContext.Entry(user).Property(u => u.PhoneNumber).IsModified = true;
+                    _dbContext.Entry(user).Property(u => u.Age).IsModified = true;
+                }
+
                 _dbContext.Users.Update(user);
+            }
 
             await _dbContext.SaveChangesAsync();
             return user;
         }
+
 
         public Task<E.User?> GetDetailedUser(int userId)
         {
             var user = _dbContext.Users
                 .Where(x => x.Id == userId)
                 .Include(x => x.Role)
+                .FirstOrDefaultAsync();
+            return user;
+        }
+
+        public Task<E.Address?> GetAddress(int userId)
+        {
+            var address = _dbContext.Users
+                .Where(x => x.Id == userId)
                 .Include(x => x.Address)
                     .ThenInclude(x => x.City)
                         .ThenInclude(x => x.Country)
+                .Select(x => x.Address)
                 .FirstOrDefaultAsync();
-            return user;
+            return address;
         }
 
         public Task<List<E.Country>> GetCountries()

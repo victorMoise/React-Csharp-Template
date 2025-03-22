@@ -24,6 +24,13 @@ namespace backend.Controllers
             return Ok(result);
         }
 
+        [HttpGet("address")]
+        public async Task<IActionResult> GetUserAddress()
+        {
+            var result = await _mediator.Send(new GetUserAddress.Query());
+            return Ok(result);
+        }   
+
         [HttpGet("countries")]
         public async Task<IActionResult> GetCountries([FromRoute] GetCountries.Query query)
         {
@@ -35,6 +42,13 @@ namespace backend.Controllers
         public async Task<IActionResult> GetCities([FromQuery] GetCities.Query query)
         {
             var result = await _mediator.Send(query);
+            return Ok(result);
+        }
+
+        [HttpPut]
+        public async Task<IActionResult> UpdateUserDetails([FromBody] SaveUser.Query command)
+        {
+            var result = await _mediator.Send(command);
             return Ok(result);
         }
     }

@@ -45,6 +45,8 @@
     "LastName": "Last name",
     "PhoneNumber": "Phone number",
     "Age": "Age",
+    "Save": "Save",
+    "DetailsUpdated": "Account details updated successfully",
     "Address": {
       "Address": "Address",
       "Country": "Country",
@@ -53,7 +55,8 @@
       "Details": "Details"
     },
     "Error": {
-      "FetchingData": "An error occurred while fetching account details"
+      "FetchingData": "An error occurred while fetching account details",
+      "SavingDetails": "An error occurred while saving account details"
     }
   },
   "Home": {
