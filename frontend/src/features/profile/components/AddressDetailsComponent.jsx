@@ -1,5 +1,6 @@
 import {
   Autocomplete,
+  Button,
   Grid,
   TextField,
   Typography,
@@ -16,6 +17,8 @@ const AddressDetailsComponent = (props) => {
     cities,
     onCountryChange,
     onCityChange,
+    onSave,
+    onReset,
   } = props;
 
   return (
@@ -68,6 +71,19 @@ const AddressDetailsComponent = (props) => {
           value={address?.details}
           onChange={onAddressChange}
         />
+      </Grid>
+      <Grid item xs={12} container justifyContent="flex-end">
+        <Button
+          variant="contained"
+          color="error"
+          onClick={onReset}
+          sx={{ mr: 1 }}
+        >
+          {t("MyAccount.Reset")}
+        </Button>
+        <Button variant="contained" color="success" onClick={onSave}>
+          {t("MyAccount.Save")}
+        </Button>
       </Grid>
     </Grid>
   );

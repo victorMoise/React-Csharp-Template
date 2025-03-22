@@ -20,7 +20,7 @@ export const lightTheme = createTheme({
     },
   },
   shape: {
-    borderRadius: 8
+    borderRadius: 8,
   },
 });
 
@@ -42,8 +42,14 @@ export const darkTheme = createTheme({
       primary: "#ffffff",
       secondary: "#a8a8a8",
     },
+    success: {
+      main: "#1b5e20",
+    },
+    error: {
+      main: "#b71c1c",
+    },
   },
   shape: {
-    borderRadius: 8
+    borderRadius: 8,
   },
 });

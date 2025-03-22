@@ -16,6 +16,7 @@ const UserDetailsContainer = () => {
     lastName: "",
     phoneNumber: "",
   });
+  const [initialState, setInitialState] = useState({});
 
   const [loading, setLoading] = useState(true);
 
@@ -26,6 +27,7 @@ const UserDetailsContainer = () => {
         const { addressData, ...userData } = details.data;
 
         setUser(userData);
+        setInitialState(userData);
       } catch (err) {
         showToast(err.message || t("MyAccount.Error.FetchingData"), "error");
       } finally {
@@ -50,6 +52,10 @@ const UserDetailsContainer = () => {
     }
   }, [showToast, t, user]);
 
+  const handleReset = useCallback(() => {
+    setUser(initialState);
+  }, [initialState]);
+
   return (
     <>
       <UserDetailsComponent
@@ -57,6 +63,7 @@ const UserDetailsContainer = () => {
         onUserChange={handleUserChange}
         loading={loading}
         onSave={handleSave}
+        onReset={handleReset}
       />
       <Toast toast={toast} handleClose={handleClose} />
     </>

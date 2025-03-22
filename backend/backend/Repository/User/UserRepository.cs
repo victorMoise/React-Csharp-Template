@@ -15,7 +15,9 @@ namespace backend.Repository.User
 
         public Task<E.User?> GetUserByUsername(string username, bool tracking)
         {
-            var query = _dbContext.Users.Where(u => u.Username == username);
+            var query = _dbContext.Users
+                .Include(u => u.Role)
+                .Where(u => u.Username == username);
             if (!tracking)
                 query = query.AsNoTracking();
 
@@ -24,7 +26,9 @@ namespace backend.Repository.User
 
         public Task<E.User?> GetUserByEmail(string email, bool tracking)
         {
-            var query = _dbContext.Users.Where(u => u.Email == email);
+            var query = _dbContext.Users
+                .Include(u => u.Role)
+                .Where(u => u.Email == email);
             if (!tracking)
                 query = query.AsNoTracking();
 
@@ -38,6 +42,19 @@ namespace backend.Repository.User
                 query = query.AsNoTracking();
 
             return query.FirstOrDefaultAsync();
+        }
+
+        public async Task<E.User> SaveUser(E.User user)
+        {
+            if (user.Id == default)
+            {
+                user.RoleId = UserRoles.USER;
+                _dbContext.Users.Add(user);
+            }
+            else
+                _dbContext.Users.Update(user);
+            await _dbContext.SaveChangesAsync();
+            return user;
         }
 
         public async Task<E.User> SaveUserDetails(E.User user)

@@ -7,6 +7,7 @@ namespace backend.Repository.User
         Task<E.User?> GetUserByUsername(string username, bool tracking = true);
         Task<E.User?> GetUserByEmail(string email, bool tracking = true);
         Task<E.User?> GetUserById(int id, bool tracking = true);
+        Task<E.User> SaveUser(E.User user);
         Task<E.User> SaveUserDetails(E.User user);
         Task<E.User?> GetDetailedUser(int userId);
         Task<E.Address?> GetAddress(int userId);

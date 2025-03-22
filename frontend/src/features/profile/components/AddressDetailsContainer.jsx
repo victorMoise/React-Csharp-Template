@@ -25,20 +25,24 @@ const AddressDetailsContainer = () => {
     street: "",
     details: "",
   });
+  const [initialState, setInitialState] = useState({});
 
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     const fetchProfileData = async () => {
       try {
+        setLoading(true);
         const address = await axiosInstance.get(endpoints.user.address);
         setAddress(address.data);
+        setInitialState(address.data);
 
         const countries = await axiosInstance.get(endpoints.user.countries);
         setCountries(countries.data);
 
         const cities = await axiosInstance.get(
-          fit(endpoints.user.cities, { countryId: address.data.country.id }));
+          fit(endpoints.user.cities, { countryId: address.data.country.id })
+        );
         setCities(cities.data);
       } catch (err) {
         showToast(err.message || t("MyAccount.Error.FetchingData"), "error");
@@ -83,6 +87,20 @@ const AddressDetailsContainer = () => {
       city: newValue,
     }));
   };
+
+  const handleSave = useCallback(async () => {
+    try {
+      await axiosInstance.put(endpoints.user.address, address);
+      showToast(t("MyAccount.DetailsUpdated"), "success");
+    } catch (err) {
+      showToast(err.message || t("MyAccount.Error.SavingDetails"), "error");
+    }
+  }, [address, showToast, t]);
+
+  const handleReset = useCallback(() => {
+    setAddress(initialState);
+  }, [initialState]);
+
   return (
     <>
       <AddressDetailsComponent
@@ -93,6 +111,8 @@ const AddressDetailsContainer = () => {
         onAddressChange={handleAddressChange}
         onCountryChange={handleCountryChange}
         onCityChange={handleCityChange}
+        onSave={handleSave}
+        onReset={handleReset}
       />
       <Toast toast={toast} handleClose={handleClose} />
     </>

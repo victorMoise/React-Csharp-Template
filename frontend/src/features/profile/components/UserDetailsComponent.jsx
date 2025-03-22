@@ -5,7 +5,7 @@ import { SimpleTextField } from "../../../common/styles";
 import FakeText from "../../../common/components/FakeText";
 
 const UserDetailsComponent = (props) => {
-  const { user, onUserChange, onSave, loading } = props;
+  const { user, loading, onUserChange, onSave, onReset } = props;
 
   const { t } = useTranslation("common");
 
@@ -74,18 +74,18 @@ const UserDetailsComponent = (props) => {
         />
       </Grid>
       <Grid item xs={12} container justifyContent="flex-end">
-        <Button
-          variant="contained"
-          color="primary"
-          onClick={onSave} 
-        >
-          {t("MyAccount.Save")} 
+        <Button variant="contained" color="error" onClick={onReset} sx={{ mr: 1 }}>
+          {t("MyAccount.Reset")}
+        </Button>
+        <Button variant="contained" color="success" onClick={onSave}>
+          {t("MyAccount.Save")}
         </Button>
       </Grid>
 
       <Grid item xs={12}>
         <Divider variant="middle" />
       </Grid>
+      <Grid item xs={12} />
     </Grid>
   );
 };

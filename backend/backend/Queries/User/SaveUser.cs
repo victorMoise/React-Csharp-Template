@@ -61,7 +61,7 @@ namespace backend.Queries.User
                 var entity = _mapper.Map<E.User>(request);
                 entity.Id = userId;
 
-                await _userRepository.SaveUser(entity);
+                await _userRepository.SaveUserDetails(entity);
 
                 return new Model { Message = "User saved successfully" };
             }
