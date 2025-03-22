@@ -22,6 +22,9 @@ namespace backend.Mapper.User
                 .ForPath(x => x.Address.Street, src => src.MapFrom(x => x.Address.Street))
                 .ForPath(x => x.Address.City, src => src.MapFrom(z => z.Address.City.Name))
                 .ForPath(x => x.Address.Country, src => src.MapFrom(z => z.Address.City.Country.Name));
+
+            CreateMap<E.Country, GetCountries.Model>();
+            CreateMap<E.City, GetCities.Model>();
         }
     }
 }

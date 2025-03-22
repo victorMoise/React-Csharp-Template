@@ -45,6 +45,13 @@
     "LastName": "Last name",
     "PhoneNumber": "Phone number",
     "Age": "Age",
+    "Address": {
+      "Address": "Address",
+      "Country": "Country",
+      "City": "City",
+      "Street": "Street",
+      "Details": "Details"
+    },
     "Error": {
       "FetchingData": "An error occurred while fetching account details"
     }

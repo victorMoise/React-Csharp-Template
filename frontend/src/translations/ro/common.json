@@ -47,6 +47,13 @@
     "Age": "Vârstă",
     "Error": {
       "FetchingData": "A apărut o eroare în timpul preluării detaliilor contului"
+    },
+    "Address": {
+      "Address": "Adresă",
+      "Country": "Țară",
+      "City": "Oraș",
+      "Street": "Stradă",
+      "Details": "Detalii"
     }
   },
   "Home": {

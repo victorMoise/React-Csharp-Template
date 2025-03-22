@@ -23,5 +23,19 @@ namespace backend.Controllers
             var result = await _mediator.Send(new GetUserDetails.Query());
             return Ok(result);
         }
+
+        [HttpGet("countries")]
+        public async Task<IActionResult> GetCountries([FromRoute] GetCountries.Query query)
+        {
+            var result = await _mediator.Send(query);
+            return Ok(result);
+        }
+
+        [HttpGet("cities")]
+        public async Task<IActionResult> GetCities([FromQuery] GetCities.Query query)
+        {
+            var result = await _mediator.Send(query);
+            return Ok(result);
+        }
     }
 }

@@ -50,5 +50,15 @@ namespace backend.Repository.User
                 .FirstOrDefaultAsync();
             return user;
         }
+
+        public Task<List<E.Country>> GetCountries()
+        {
+            return _dbContext.Countries.ToListAsync();
+        }
+
+        public Task<List<E.City>> GetCities(int countryId)
+        {
+            return _dbContext.Cities.Where(x => x.CountryId == countryId).ToListAsync();
+        }
     }
 }
