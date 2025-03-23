@@ -41,9 +41,25 @@
     "MyAccount": "Detalii cont",
     "Username": "Nume de utilizator",
     "Email": "Email",
+    "FirstName": "Prenume",
+    "LastName": "Nume",
     "PhoneNumber": "Număr de telefon",
+    "Age": "Vârstă",
+    "Save": "Salvează",
+    "Reset": "Resetează",
+    "DetailsUpdated": "Detaliile contului au fost actualizate cu succes",
+    "Address": {
+      "Address": "Adresă",
+      "Country": "Țară",
+      "City": "Oraș",
+      "Street": "Stradă",
+      "Details": "Detalii"
+    },
     "Error": {
-      "FetchingData": "A apărut o eroare în timpul preluării detaliilor contului"
+      "FetchingData": "A apărut o eroare în timpul preluării detaliilor contului",
+      "SavingDetails": "A apărut o eroare în timpul salvării detaliilor contului",
+      "CityOrCountryMissing": "Vă rugăm să completați câmpurile oraș și țară",
+      "UsernameOrEmailMissing": "Vă rugăm să completați câmpurile nume de utilizator și email"
     }
   },
   "Home": {

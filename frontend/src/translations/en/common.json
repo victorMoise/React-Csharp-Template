@@ -41,9 +41,25 @@
     "MyAccount": "Account details",
     "Username": "Username",
     "Email": "Email",
+    "FirstName": "First name",
+    "LastName": "Last name",
     "PhoneNumber": "Phone number",
+    "Age": "Age",
+    "Save": "Save",
+    "Reset": "Reset",
+    "DetailsUpdated": "Account details updated successfully",
+    "Address": {
+      "Address": "Address",
+      "Country": "Country",
+      "City": "City",
+      "Street": "Street",
+      "Details": "Details"
+    },
     "Error": {
-      "FetchingData": "An error occurred while fetching account details"
+      "FetchingData": "An error occurred while fetching account details",
+      "SavingDetails": "An error occurred while saving account details",
+      "CityOrCountryMissing": "Please fill in city and country fields",
+      "UsernameOrEmailMissing": "Please fill in username and email fields"
     }
   },
   "Home": {
