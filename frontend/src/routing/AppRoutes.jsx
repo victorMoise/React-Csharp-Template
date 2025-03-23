@@ -6,6 +6,7 @@ import { useAuth } from "../contexts/AuthContext";
 import HomeContainer from "../features/home/components/HomeContainer";
 import RegisterForm from "../features/register/components/RegisterContainer";
 import ProfileContainer from "../features/profile/components/ProfileContainer";
+import SettingsContainer from "../features/settings/components/SettingsContainer";
 
 const AppRoutes = (props) => {
   const location = useLocation();
@@ -37,6 +38,10 @@ const AppRoutes = (props) => {
       <Route
         path="/profile"
         element={<ProtectedRoute element={<ProfileContainer />} />}
+      />
+      <Route
+        path="/settings"
+        element={<ProtectedRoute element={<SettingsContainer />} />}
       />
     </Routes>
   );

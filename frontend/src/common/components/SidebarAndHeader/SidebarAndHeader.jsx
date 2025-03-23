@@ -2,6 +2,7 @@ import React, { useCallback, useState } from "react";
 import { Box, useMediaQuery } from "@mui/material";
 import HomeIcon from "@mui/icons-material/Home";
 import PersonIcon from "@mui/icons-material/Person";
+import SettingsIcon from "@mui/icons-material/Settings";
 import { useTheme } from "@mui/material/styles";
 import { Logout } from "@mui/icons-material";
 import { useAuth } from "../../../contexts/AuthContext";
@@ -40,12 +41,19 @@ const SidebarAndHeader = (props) => {
       },
     },
     {
+      label: `${t("Sidebar.Settings")}`,
+      icon: <SettingsIcon />,
+      onClick: () => {
+        navigate("/settings");
+      },
+    },
+    {
       label: `${t("Sidebar.Logout")}`,
       icon: <Logout />,
       onClick: () => {
         logout();
       },
-    },
+    }
   ];
 
   return (

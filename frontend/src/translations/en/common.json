@@ -1,4 +1,8 @@
 {
+  "Language": {
+    "English": "English",
+    "Romanian": "Romanian"
+  },
   "Login": {
     "Error": {
       "UsernameAndPasswordRequired": "Please enter a username and password",
@@ -35,6 +39,7 @@
   "Sidebar": {
     "Home": "Home",
     "MyAccount": "My account",
+    "Settings": "Settings",
     "Logout": "Logout"
   },
   "MyAccount": {
@@ -61,6 +66,13 @@
       "CityOrCountryMissing": "Please fill in city and country fields",
       "UsernameOrEmailMissing": "Please fill in username and email fields"
     }
+  },
+  "Settings": {
+    "Settings": "Settings",
+    "Language": "Language",
+    "Theme": "Theme",
+    "Light": "Light",
+    "Dark": "Dark"
   },
   "Home": {
     "Welcome": "Welcome"

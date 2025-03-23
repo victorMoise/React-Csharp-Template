@@ -3,27 +3,18 @@ import { FormControl, Select, MenuItem } from "@mui/material";
 import ReactCountryFlag from "react-country-flag";
 import { useTranslation } from "react-i18next";
 
-const LanguageSelector = ({textColor}) => {
+const LanguageSelector = () => {
+  const { t } = useTranslation("common");
   const { i18n } = useTranslation();
 
   const handleChange = (event) => {
     i18n.changeLanguage(event.target.value);
+    localStorage.setItem("language", event.target.value);
   };
 
   return (
-    <FormControl variant="outlined" size="small" sx={{ marginLeft: "auto" }}>
-      <Select
-        value={i18n.language}
-        onChange={handleChange}
-        displayEmpty
-        
-        sx={{
-          "& .MuiOutlinedInput-notchedOutline": {
-            border: "none",
-          },
-          color: textColor,
-        }}
-      >
+    <FormControl variant="outlined" size="small">
+      <Select value={i18n.language} onChange={handleChange} displayEmpty>
         <MenuItem value="en">
           <ReactCountryFlag
             countryCode="GB"
@@ -35,7 +26,7 @@ const LanguageSelector = ({textColor}) => {
             }}
             title="GB"
           />
-          English
+          {t("Language.English")}
         </MenuItem>
         <MenuItem value="ro" color="primary">
           <ReactCountryFlag
@@ -48,7 +39,7 @@ const LanguageSelector = ({textColor}) => {
             }}
             title="RO"
           />
-          Romanian
+          {t("Language.Romanian")}
         </MenuItem>
       </Select>
     </FormControl>

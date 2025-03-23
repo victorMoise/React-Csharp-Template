@@ -1,4 +1,8 @@
 {
+  "Language": {
+    "English": "Engleză",
+    "Romanian": "Română"
+  },
   "Login": {
     "Error": {
       "UsernameAndPasswordRequired": "Introduceți un nume de utilizator și o parolă",
@@ -35,6 +39,7 @@
   "Sidebar": {
     "Home": "Acasă",
     "MyAccount": "Contul meu",
+    "Settings": "Setări",
     "Logout": "Deconectare"
   },
   "MyAccount": {
@@ -61,6 +66,13 @@
       "CityOrCountryMissing": "Vă rugăm să completați câmpurile oraș și țară",
       "UsernameOrEmailMissing": "Vă rugăm să completați câmpurile nume de utilizator și email"
     }
+  },
+  "Settings": {
+    "Settings": "Setări",
+    "Language": "Limbă",
+    "Theme": "Temă",
+    "Light": "Luminos",
+    "Dark": "Întunecat"
   },
   "Home": {
     "Welcome": "Bine ați venit"

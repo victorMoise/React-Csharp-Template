@@ -9,7 +9,13 @@ const UserDetailsComponent = (props) => {
 
   const { t } = useTranslation("common");
 
-  if (loading) return <FakeText lines={10} />;
+  if (loading)
+    return (
+      <>
+        <FakeText lines={10} />
+        <Divider variant="middle" sx={{ margin: 2 }} />
+      </>
+    );
 
   return (
     <Grid container spacing={2}>
@@ -74,7 +80,12 @@ const UserDetailsComponent = (props) => {
         />
       </Grid>
       <Grid item xs={12} container justifyContent="flex-end">
-        <Button variant="contained" color="error" onClick={onReset} sx={{ mr: 1 }}>
+        <Button
+          variant="contained"
+          color="error"
+          onClick={onReset}
+          sx={{ mr: 1 }}
+        >
           {t("MyAccount.Reset")}
         </Button>
         <Button variant="contained" color="success" onClick={onSave}>
