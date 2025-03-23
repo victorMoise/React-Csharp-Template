@@ -41,7 +41,7 @@ namespace backend.Queries.Auth
             {
                 var user = await _userRepository.GetUserByUsername(request.Username) ?? throw new Exception("User.Backend.Error.UserNotFound");
                 if (!_encryptionService.Verify(request.Password, user.Password))
-                    throw new Exception("User.Backend.Error.PasswordIncorrect");
+                    throw new Exception("Invalid login credentials");
 
                 var token = _tokenService.CreateToken(user);
                 var model = _mapper.Map<Model>(user);

@@ -17,12 +17,7 @@ namespace backend.Mapper.User
             CreateMap<E.User, GetUserDetails.Query>();
             CreateMap<SaveUser.Query, E.User>();
 
-            CreateMap<E.User, GetUserDetails.Model>()
-                .ForMember(x => x.Role, src => src.MapFrom(z => z.Role.Name))
-                .ForPath(x => x.Address.Details, src => src.MapFrom(x => x.Address.Details))
-                .ForPath(x => x.Address.Street, src => src.MapFrom(x => x.Address.Street))
-                .ForPath(x => x.Address.City, src => src.MapFrom(z => z.Address.City.Name))
-                .ForPath(x => x.Address.Country, src => src.MapFrom(z => z.Address.City.Country.Name));
+            CreateMap<E.User, GetUserDetails.Model>();
 
             CreateMap<E.Address, GetUserAddress.Model>()
                 .ForMember(dest => dest.Street, opt => opt.MapFrom(src => src.Street))
@@ -34,6 +29,7 @@ namespace backend.Mapper.User
             CreateMap<E.Country, GetUserAddress.Model.CountryModel>();
             CreateMap<E.Country, GetCountries.Model>();
             CreateMap<E.City, GetCities.Model>();
+            CreateMap<SaveUserAddress.Query, E.Address>();
         }
     }
 }

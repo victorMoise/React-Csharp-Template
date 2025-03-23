@@ -12,7 +12,7 @@
         public int? Age { get; init; }
         public int? AddressId { get; set; }
         public int RoleId { get; set; }
-        public Address Address { get; init; }
+        public Address Address { get; set; }
         public Role Role { get; init; }
     }
 }

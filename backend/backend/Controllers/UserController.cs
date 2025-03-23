@@ -51,5 +51,12 @@ namespace backend.Controllers
             var result = await _mediator.Send(command);
             return Ok(result);
         }
+
+        [HttpPut("address")]
+        public async Task<IActionResult> UpdateUserAddress([FromBody] SaveUserAddress.Query command)
+        {
+            var result = await _mediator.Send(command);
+            return Ok(result);
+        }
     }
 }

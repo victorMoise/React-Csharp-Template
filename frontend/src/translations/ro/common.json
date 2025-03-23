@@ -57,7 +57,9 @@
     },
     "Error": {
       "FetchingData": "A apărut o eroare în timpul preluării detaliilor contului",
-      "SavingDetails": "A apărut o eroare în timpul salvării detaliilor contului"
+      "SavingDetails": "A apărut o eroare în timpul salvării detaliilor contului",
+      "CityOrCountryMissing": "Vă rugăm să completați câmpurile oraș și țară",
+      "UsernameOrEmailMissing": "Vă rugăm să completați câmpurile nume de utilizator și email"
     }
   },
   "Home": {

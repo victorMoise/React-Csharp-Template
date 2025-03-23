@@ -39,9 +39,11 @@ const AddressDetailsContainer = () => {
 
         const countries = await axiosInstance.get(endpoints.user.countries);
         setCountries(countries.data);
-
-        const cities = await axiosInstance.get(
-          fit(endpoints.user.cities, { countryId: address.data.country.id })
+        
+        let cities = []
+        if (address?.data?.country?.id) 
+          cities = await axiosInstance.get(
+            fit(endpoints.user.cities, { countryId: address?.data?.country?.id })
         );
         setCities(cities.data);
       } catch (err) {
@@ -90,8 +92,21 @@ const AddressDetailsContainer = () => {
 
   const handleSave = useCallback(async () => {
     try {
-      await axiosInstance.put(endpoints.user.address, address);
+      if (!address?.city?.id || !address?.country?.id) {
+        showToast(t("MyAccount.Error.CityOrCountryMissing"), "error");
+        return;
+      }
+
+      const dtoAddress = {
+        cityId: address?.city?.id,
+        countryId: address?.country?.id,
+        street: address.street,
+        details: address.details,
+      }
+
+      await axiosInstance.put(endpoints.user.address, dtoAddress);
       showToast(t("MyAccount.DetailsUpdated"), "success");
+      setInitialState(address);
     } catch (err) {
       showToast(err.message || t("MyAccount.Error.SavingDetails"), "error");
     }

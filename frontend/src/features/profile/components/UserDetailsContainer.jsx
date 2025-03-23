@@ -45,8 +45,16 @@ const UserDetailsContainer = () => {
 
   const handleSave = useCallback(async () => {
     try {
-      await axiosInstance.put(endpoints.user.details, user);
+      if (!user.username?.length || !user.email?.length) {
+        showToast(t("MyAccount.Error.UsernameOrEmailMissing"), "error");
+        return;
+      }
+
+      const useDro = {...user, age: user.age || null}
+
+      await axiosInstance.put(endpoints.user.details, useDro);
       showToast(t("MyAccount.DetailsUpdated"), "success");
+      setInitialState(user);
     } catch (err) {
       showToast(err.message || t("MyAccount.Error.SavingDetails"), "error");
     }

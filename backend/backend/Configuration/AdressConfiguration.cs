@@ -8,7 +8,7 @@ namespace backend.Configuration
         public void Configure(Microsoft.EntityFrameworkCore.Metadata.Builders.EntityTypeBuilder<Address> builder)
         {
             builder.ToTable("addresses").HasKey(x => x.Id);
-            builder.Property(x => x.Street).IsRequired().HasMaxLength(255);
+            builder.Property(x => x.CityId).IsRequired();
         }
     }
 }

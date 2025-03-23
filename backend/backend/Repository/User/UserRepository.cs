@@ -113,6 +113,29 @@ namespace backend.Repository.User
             return address;
         }
 
+        public Task<E.Address> SaveAddress(E.User user, E.Address address)
+        {
+            if (user.AddressId == null)
+            {
+                _dbContext.Addresses.Add(address);
+                _dbContext.SaveChanges();
+                user.AddressId = address.Id;
+                _dbContext.Users.Update(user);
+                _dbContext.SaveChanges();
+            }
+
+            var existingAddress = _dbContext.Addresses.FirstOrDefault(x => x.Id == user.AddressId);
+            if (existingAddress != null)
+            {
+                existingAddress.CityId = address.CityId;
+                existingAddress.Details = address.Details;
+                existingAddress.Street = address.Street;
+                _dbContext.Addresses.Update(existingAddress);
+                _dbContext.SaveChanges();
+            }
+            return Task.FromResult(address);
+        }
+
         public Task<List<E.Country>> GetCountries()
         {
             return _dbContext.Countries.ToListAsync();

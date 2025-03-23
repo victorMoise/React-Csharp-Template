@@ -57,7 +57,9 @@
     },
     "Error": {
       "FetchingData": "An error occurred while fetching account details",
-      "SavingDetails": "An error occurred while saving account details"
+      "SavingDetails": "An error occurred while saving account details",
+      "CityOrCountryMissing": "Please fill in city and country fields",
+      "UsernameOrEmailMissing": "Please fill in username and email fields"
     }
   },
   "Home": {

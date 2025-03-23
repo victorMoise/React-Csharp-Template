@@ -67,7 +67,7 @@ const AddressDetailsComponent = (props) => {
         <TextField
           fullWidth
           name="details"
-          label={t("MyAccount.Address.Street")}
+          label={t("MyAccount.Address.Details")}
           value={address?.details}
           onChange={onAddressChange}
         />

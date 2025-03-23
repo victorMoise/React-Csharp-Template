@@ -11,6 +11,7 @@ namespace backend.Repository.User
         Task<E.User> SaveUserDetails(E.User user);
         Task<E.User?> GetDetailedUser(int userId);
         Task<E.Address?> GetAddress(int userId);
+        Task<E.Address> SaveAddress(E.User user, E.Address address);
         Task<List<E.Country>> GetCountries();
         Task<List<E.City>> GetCities(int countryId); 
     }

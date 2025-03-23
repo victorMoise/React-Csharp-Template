@@ -11,7 +11,6 @@ public class AppDbContext : DbContext
     public DbSet<Country> Countries { get; set; }
     public DbSet<City> Cities { get; set; }
     public DbSet<Address> Addresses { get; set; }
-    public DbSet<MusicGenre> MusicGenres { get; set; }
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
