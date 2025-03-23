@@ -7,10 +7,12 @@ import {
 } from "@mui/material";
 import React from "react";
 import { useTranslation } from "react-i18next";
+import FakeText from "../../../common/components/FakeText";
 
 const AddressDetailsComponent = (props) => {
   const { t } = useTranslation("common");
   const {
+    loading,
     address,
     onAddressChange,
     countries,
@@ -20,6 +22,8 @@ const AddressDetailsComponent = (props) => {
     onSave,
     onReset,
   } = props;
+
+  if (loading) return <FakeText lines={10} />;
 
   return (
     <Grid container spacing={2}>

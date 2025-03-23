@@ -9,9 +9,11 @@ import { BrowserRouter as Router } from "react-router-dom";
 import AppRoutes from "./routing/AppRoutes";
 import { CssBaseline } from "@mui/material";
 
+const savedLanguage = localStorage.getItem("language") || "en";
+
 i18next.init({
   interpolation: { escapeValue: false },
-  lng: "en",
+  lng: savedLanguage,
   resources: {
     en: {
       common: common_en,
@@ -26,10 +28,10 @@ const App = () => {
   return (
     <I18nextProvider i18n={i18next}>
       <AuthProvider>
-          <CssBaseline /> 
-          <Router>
-            <AppRoutes />
-          </Router>
+        <CssBaseline />
+        <Router>
+          <AppRoutes />
+        </Router>
       </AuthProvider>
     </I18nextProvider>
   );

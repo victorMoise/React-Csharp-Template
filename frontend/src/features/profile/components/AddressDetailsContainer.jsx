@@ -119,10 +119,10 @@ const AddressDetailsContainer = () => {
   return (
     <>
       <AddressDetailsComponent
+        loading={loading}
         address={address}
         cities={cities}
         countries={countries}
-        loading={loading}
         onAddressChange={handleAddressChange}
         onCountryChange={handleCountryChange}
         onCityChange={handleCityChange}
