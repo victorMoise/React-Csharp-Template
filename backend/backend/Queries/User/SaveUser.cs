@@ -2,6 +2,7 @@
 using backend.Repository.Generic;
 using backend.Repository.User;
 using backend.Service.Token;
+using FluentValidation;
 using MediatR;
 using Microsoft.EntityFrameworkCore;
 using E = backend.Entities;
@@ -23,6 +24,24 @@ namespace backend.Queries.User
         public class Model
         {
             public string Message { get; init; }
+        }
+
+        public class Validator : AbstractValidator<Query>
+        {
+            private readonly int MIN_USERNAME_LENGTH = 3;
+            private readonly int MAX_USERNAME_LENGTH = 255;
+
+            public Validator()
+            {
+                RuleFor(x => x.Username)
+                    .NotEmpty()
+                    .MinimumLength(MIN_USERNAME_LENGTH)
+                    .MaximumLength(MAX_USERNAME_LENGTH);
+
+                RuleFor(x => x.Email)
+                    .NotEmpty()
+                    .EmailAddress();
+            }
         }
 
         internal class QueryHandler : IRequestHandler<Query, Model>

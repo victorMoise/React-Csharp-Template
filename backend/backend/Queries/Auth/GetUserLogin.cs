@@ -2,6 +2,7 @@
 using backend.Repository.User;
 using backend.Service.Encryption;
 using backend.Service.Token;
+using FluentValidation;
 using MediatR;
 
 namespace backend.Queries.Auth
@@ -20,6 +21,15 @@ namespace backend.Queries.Auth
             public int UserId { get; init; }
             public string Username { get; init; }
             public string RoleId { get; init; }
+        }
+
+        public class Validator : AbstractValidator<Query>
+        {
+            public Validator()
+            {
+                RuleFor(x => x.Username).NotEmpty();
+                RuleFor(x => x.Password).NotEmpty();
+            }
         }
 
         internal class QueryHandler : IRequestHandler<Query, Model>

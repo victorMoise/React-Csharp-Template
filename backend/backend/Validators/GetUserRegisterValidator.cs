@@ -2,7 +2,7 @@
 using backend.Repository.User;
 using FluentValidation;
 
-namespace backend.Validators.Auth
+namespace backend.Validators
 {
     public class GetUserRegisterValidator : AbstractValidator<GetUserRegister.Query>
     {
@@ -38,7 +38,7 @@ namespace backend.Validators.Auth
 
         private bool BeUniqueUsername(string username)
         {
-            var user = _userRepository.GetUserByUsername(username).Result; 
+            var user = _userRepository.GetUserByUsername(username).Result;
             return user == null;
         }
 

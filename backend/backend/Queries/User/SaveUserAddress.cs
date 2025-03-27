@@ -1,6 +1,7 @@
 ﻿using AutoMapper;
 using backend.Repository.User;
 using backend.Service.Token;
+using FluentValidation;
 using MediatR;
 using E = backend.Entities;
 
@@ -19,6 +20,15 @@ namespace backend.Queries.User
         public class Model
         {
             public string Message { get; init; }
+        }
+
+        public class Validator : AbstractValidator<Query>
+        {
+            public Validator()
+            {
+                RuleFor(x => x.CityId).NotEmpty();
+                RuleFor(x => x.CountryId).NotEmpty();
+            }
         }
 
         internal class QueryHandler : IRequestHandler<Query, Model>
