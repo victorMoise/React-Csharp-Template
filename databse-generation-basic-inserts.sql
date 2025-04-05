@@ -12,108 +12,48 @@ CREATE DATABASE "Template-Database"
 
 
 
--- roles
-CREATE TABLE IF NOT EXISTS public.roles
-(
-    id integer NOT NULL DEFAULT nextval('roles_id_seq'::regclass),
-    code character varying(10) COLLATE pg_catalog."default" NOT NULL,
-    name character varying(50) COLLATE pg_catalog."default",
-    CONSTRAINT roles_pkey PRIMARY KEY (id)
-)
+CREATE TABLE roles (
+    id SERIAL PRIMARY KEY,
+    code VARCHAR(10) NOT NULL,
+    name VARCHAR(50)
+);
 
-TABLESPACE pg_default;
+-- COUNTRIES TABLE
+CREATE TABLE countries (
+    id SERIAL PRIMARY KEY,
+    code VARCHAR(3) NOT NULL,
+    name VARCHAR(100) NOT NULL
+);
 
-ALTER TABLE IF EXISTS public.roles
-    OWNER to postgres;
+-- CITIES TABLE
+CREATE TABLE cities (
+    id SERIAL PRIMARY KEY,
+    code VARCHAR(10) NOT NULL,
+    name VARCHAR(50) NOT NULL,
+    country_id INTEGER NOT NULL REFERENCES countries(id) ON DELETE CASCADE
+);
 
+-- ADDRESSES TABLE
+CREATE TABLE addresses (
+    id SERIAL PRIMARY KEY,
+    street VARCHAR(255),
+    city_id INTEGER REFERENCES cities(id) ON DELETE CASCADE,
+    details TEXT
+);
 
-
--- countries
-CREATE TABLE IF NOT EXISTS public.countries
-(
-    id integer NOT NULL DEFAULT nextval('countries_id_seq'::regclass),
-    code character varying(3) COLLATE pg_catalog."default" NOT NULL,
-    name character varying(100) COLLATE pg_catalog."default" NOT NULL,
-    CONSTRAINT countries_pkey PRIMARY KEY (id)
-)
-
-TABLESPACE pg_default;
-
-ALTER TABLE IF EXISTS public.countries
-    OWNER to postgres;
-
-
-
--- cities
-CREATE TABLE IF NOT EXISTS public.cities
-(
-    id integer NOT NULL DEFAULT nextval('cities_id_seq'::regclass),
-    code character varying(10) COLLATE pg_catalog."default" NOT NULL,
-    name character varying(50) COLLATE pg_catalog."default" NOT NULL,
-    country_id integer NOT NULL,
-    CONSTRAINT cities_pkey PRIMARY KEY (id),
-    CONSTRAINT fk_cities_countries FOREIGN KEY (country_id)
-        REFERENCES public.countries (id) MATCH SIMPLE
-        ON UPDATE NO ACTION
-        ON DELETE CASCADE
-)
-
-TABLESPACE pg_default;
-
-ALTER TABLE IF EXISTS public.cities
-    OWNER to postgres;
-
-
-
--- addresses
-CREATE TABLE IF NOT EXISTS public.addresses
-(
-    id integer NOT NULL DEFAULT nextval('addresses_id_seq'::regclass),
-    street character varying(255) COLLATE pg_catalog."default",
-    city_id integer,
-    details text COLLATE pg_catalog."default",
-    CONSTRAINT addresses_pkey PRIMARY KEY (id),
-    CONSTRAINT addresses_city_id_fkey FOREIGN KEY (city_id)
-        REFERENCES public.cities (id) MATCH SIMPLE
-        ON UPDATE NO ACTION
-        ON DELETE CASCADE
-)
-
-TABLESPACE pg_default;
-
-ALTER TABLE IF EXISTS public.addresses
-    OWNER to postgres;
-
-
-
--- users
-CREATE TABLE IF NOT EXISTS public.users
-(
-    id integer NOT NULL DEFAULT nextval('users_id_seq1'::regclass),
-    username character varying(255) COLLATE pg_catalog."default" NOT NULL,
-    email character varying(100) COLLATE pg_catalog."default" NOT NULL,
-    password character varying(255) COLLATE pg_catalog."default" NOT NULL,
-    first_name character varying(100) COLLATE pg_catalog."default",
-    last_name character varying(100) COLLATE pg_catalog."default",
-    phone_number character varying(20) COLLATE pg_catalog."default",
-    age integer,
-    address_id integer,
-    role_id integer NOT NULL,
-    CONSTRAINT users_pkey1 PRIMARY KEY (id),
-    CONSTRAINT users_email_key1 UNIQUE (email),
-    CONSTRAINT users_phone_number_key UNIQUE (phone_number),
-    CONSTRAINT users_username_key1 UNIQUE (username),
-    CONSTRAINT fk_users_roles FOREIGN KEY (role_id)
-        REFERENCES public.roles (id) MATCH SIMPLE
-        ON UPDATE NO ACTION
-        ON DELETE CASCADE
-)
-
-TABLESPACE pg_default;
-
-ALTER TABLE IF EXISTS public.users
-    OWNER to postgres;
-
+-- USERS TABLE
+CREATE TABLE users (
+    id SERIAL PRIMARY KEY,
+    username VARCHAR(255) NOT NULL UNIQUE,
+    email VARCHAR(100) NOT NULL UNIQUE,
+    password VARCHAR(255) NOT NULL,
+    first_name VARCHAR(100),
+    last_name VARCHAR(100),
+    phone_number VARCHAR(20) UNIQUE,
+    age INTEGER,
+    address_id INTEGER REFERENCES addresses(id) ON DELETE CASCADE,
+    role_id INTEGER NOT NULL REFERENCES roles(id) ON DELETE CASCADE
+);
 
 
 -- inserts
