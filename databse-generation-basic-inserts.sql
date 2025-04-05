@@ -65,13 +65,13 @@ values ('USR', 'User');
 
 -- countries
 insert into countries(code, name) 
-values ('US', 'USA')
+values ('US', 'USA');
 insert into countries(code, name) 
-values ('CA', 'Canada')
+values ('CA', 'Canada');
 insert into countries(code, name) 
-values ('MX', 'Mexico')
+values ('MX', 'Mexico');
 insert into countries(code, name) 
-values ('RO', 'Romania')
+values ('RO', 'Romania');
 
 -- USA
 INSERT INTO cities(code, name, country_id) VALUES
