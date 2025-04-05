@@ -50,7 +50,7 @@ const AddressDetailsComponent = (props) => {
         <Autocomplete
           fullWidth
           options={cities}
-          value={address?.city}
+          value={address?.city || []}
           getOptionLabel={(option) => option.name}
           onChange={onCityChange}
           renderInput={(params) => (
