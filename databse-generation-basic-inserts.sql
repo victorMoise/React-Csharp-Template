@@ -133,3 +133,35 @@ values ('MX', 'Mexico')
 insert into countries(code, name) 
 values ('RO', 'Romania')
 
+-- USA
+INSERT INTO cities(code, name, country_id) VALUES
+('NYC', 'New York', 1),
+('LAX', 'Los Angeles', 1),
+('CHI', 'Chicago', 1),
+('HOU', 'Houston', 1),
+('PHX', 'Phoenix', 1);
+
+-- Canada
+INSERT INTO cities(code, name, country_id) VALUES
+('TOR', 'Toronto', 2),
+('VAN', 'Vancouver', 2),
+('MON', 'Montreal', 2),
+('CAL', 'Calgary', 2),
+('OTT', 'Ottawa', 2);
+
+-- Mexico
+INSERT INTO cities(code, name, country_id) VALUES
+('MEX', 'Mexico City', 3),
+('GDL', 'Guadalajara', 3),
+('MTY', 'Monterrey', 3),
+('PUE', 'Puebla', 3),
+('TJU', 'Tijuana', 3);
+
+-- Romania
+INSERT INTO cities(code, name, country_id) VALUES
+('B', 'Bucharest', 4),
+('CJ', 'Cluj-Napoca', 4),
+('TM', 'Timișoara', 4),
+('IS', 'Iași', 4),
+('BR', 'Brașov', 4);
+
